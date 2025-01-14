@@ -7907,6 +7907,10 @@ fieldset:disabled .btn {
   margin-top: 3rem !important;
 }
 
+.mt-6 {
+  margin-top: 7rem !important;
+}
+
 .mt-auto {
   margin-top: auto !important;
 }
