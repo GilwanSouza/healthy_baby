@@ -56,6 +56,26 @@
         </nav>
 
         <header class="login-image masthead-login">
+
+            <div class="text-start">
+                <form class="col-lg-4  mx-6 mt-5">
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                      <div id="emailHelp" class="form-info">Nunca compartilharemos seu e-mail com mais ninguém.</div>
+                    </div>
+                    <div class="mb-3 bg-transparent">
+                      <label for="exampleInputPassword1" class="form-label">Senha</label>
+                      <input type="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <div class="mb-3 form-check">
+                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                      <label class="form-check-label mx-auto" for="exampleCheck1">Mostrar senha</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary mx-7">Entrar</button>
+                </form>
+            </div>  
+
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
