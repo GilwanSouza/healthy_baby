@@ -4,6 +4,7 @@ from .views import register
 
 urlpatterns = [
     path('register/', register, name='register'),
-    path('login/', auth_views.LoginView.as_view(template_name='usuarios/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
+    path('login/', auth_views.LoginView.as_view(template_name='healthybaby/templates/usuarios/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='healthybaby/templates/usuarios/login.html'), name='logout'),
+    path('index/', auth_views.LogoutView.as_view(template_name='healthybaby/templates/index.html'), name='index'),
 ]

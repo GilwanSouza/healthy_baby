@@ -1,5 +1,3 @@
-from django.shortcuts import render
-
 # Create your views here.
 from django.shortcuts import render, redirect
 from .forms import CustomUserForm
@@ -16,3 +14,6 @@ def register(request):
         form = CustomUserForm()
 
     return render(request, 'healthybaby/templates/usuarios/register.html', {'form': form})
+
+def index(request):
+    return render(request, 'healthybaby/templates/index.html')
