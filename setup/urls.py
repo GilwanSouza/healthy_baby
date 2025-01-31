@@ -23,11 +23,5 @@ from healthybaby.views import index  # Importando corretamente a view index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('healthybaby/', include('healthybaby.urls')),  # Inclui as URLs do app usuarios
-]
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', index, name='index'),  # Definindo a home como index
     path('healthybaby/', include('healthybaby.urls')),
 ]

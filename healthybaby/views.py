@@ -13,7 +13,10 @@ def register(request):
     else:
         form = CustomUserForm()
 
-    return render(request, 'healthybaby/templates/usuarios/register.html', {'form': form})
+    return render(request, 'usuarios/register.html', {'form': form})
 
 def index(request):
-    return render(request, 'healthybaby/templates/index.html')
+    return render(request, 'index.html')
+
+def login(request):
+    return render(request, 'usuarios/login.html')
