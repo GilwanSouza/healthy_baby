@@ -9,7 +9,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)  # Loga o usuário automaticamente
-            return redirect('home')  # Redireciona para a página inicial
+            return redirect('listagem')  # Redireciona para a página de listagem
     else:
         form = CustomUserForm()
 
