@@ -23,5 +23,5 @@ from healthybaby.views import index  # Importando corretamente a view index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('healthybaby/', include('healthybaby.urls')),
+    path('', include('healthybaby.urls')),
 ]
