@@ -18,34 +18,11 @@
         <link href="{% static 'assets/css/styles.css' %}" rel="stylesheet">
         <link href="assets/favicon.ico" rel="stylesheet">
 
-        <style> 
-            body { background-color: #2c2c2c; 
-            color: #ffffff; 
-            font-family: Arial, sans-serif; } .container { padding: 20px; } 
-            h1 { color: #bb86fc; } 
-            p { color: #e0e0e0; } 
-
-            .justificado {
-                text-align: justify;
-            }
-
-            #mainNav {
-                position: absolute;
-                width: 100%;
-                z-index: 10;
-            }
-            .hero-image {
-                position: relative;
-                width: 100%;
-                height: 100vh;
-                background: url('../img/header-bg.jpg') center center/cover no-repeat;
-            }
-        </style>
     </head>
-    <body>
-        <nav id="page-top" class="navbar navbar-expand-lg bg-transparent" id="mainNav">
-            <div class="container">
-                <a class="navbar-brand masthead-subheading text-white" href="index.html">Healthy Baby</a>
+    <body class="home-page">
+        <nav class="navbar navbar-expand-lg bg-transparent navbar-dark fixed-top" id="mainNav" style="background-color: transparent !important;">
+            <div class="container bg-transparent">
+                <a class="navbar-brand masthead-subheading text-white" href="{% url 'healthybaby:index' %}">Healthy Baby</a>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         <li class="nav-item btn"><a class="nav-link text-white" href="cadastroGestante.html">Sobre</a></li>
@@ -54,17 +31,33 @@
             </div>
         </nav>
 
-        <header class="login-image masthead-login">
-            <div>
-                <form method="post">
+        <header class="masthead hero-image">
+            <div class="container">
+                <form method="post" class="row g-3 needs-validation" novalidate>
                     {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit">Cadastrar</button>
+                    {% for field in form %}
+                        <div class="col-md-3">
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                            <div class="d-flex justify-content-center">  
+                                <div class="campo-{{ field.name }}">
+                                    {{ field }}
+                                </div>
+                            </div>
+                            {% if field.errors %}
+                                <div class="text-danger">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <div class="d-flex justify-content-center mt-5">
+                        <button type="submit" class="btn btn-primary bg-blue">Cadastrar</button>
+                    </div>
                 </form>
-            </div>
+            </div>                    
         </header>
 
-        <footer class="footer py-4">
+        <footer class="footer py-4 bg-body">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-3 text-lg-start">Copyright &copy; Healthy Baby 2024</div>

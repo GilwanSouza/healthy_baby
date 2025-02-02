@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import CustomUserForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 
 def user_login(request):
@@ -33,3 +33,8 @@ def index(request):
 
 def listagem_view(request):
     return render(request, 'listagem.html')
+
+def user_logout(request):
+    logout(request)
+    request.session.flush()
+    return redirect('healthybaby:login')
