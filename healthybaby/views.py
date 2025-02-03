@@ -34,6 +34,18 @@ def index(request):
 def listagem_view(request):
     return render(request, 'listagem.html')
 
+def posParto_view(request):
+    return render(request, 'posParto.html')
+
+def consultas_view(request):
+    return render(request, 'consultas.html')
+
+def consultaOdonto_view(request):
+    return render(request, 'consultaOdonto.html')
+
+def cadastroGestante_view(request):
+    return render(request, 'cadastroGestante.html')
+
 def user_logout(request):
     logout(request)
     request.session.flush()

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -6,71 +7,33 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Healthy Baby</title>
-    
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    
-        <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
         
+        <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+
+        <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
-        
-        <link href="css\styles.css" rel="stylesheet"/>
-        <style> 
-            body { background-color: #2c2c2c; 
-            color: #ffffff; 
-            font-family: Arial, sans-serif; } .container { padding: 20px; } 
-            h1 { color: #bb86fc; } 
-            p { color: #e0e0e0; } 
-        </style>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <style>
-            #mainNav {
-                position: absolute;
-                width: 100%;
-                z-index: 10;
-            }
-            .image-header5 {
-                position: relative;
-                width: 100%;
-                height: 100vh;
-                background: url('assets/img/header5.jpg') center center/cover no-repeat;
-            }
-            .justificado {
-                text-align: justify;
-            }
-            .custom-img {
-                width: 40px;
-                height: 40px;
-            }
-            .custom-img-2{
-                width: 550px;
-                height: 300px;  
-            }
-            .custom-table{
-                margin-left: 25%;
-                margin-right: 25%;
-            }
-        </style>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link href="{% static 'assets/css/styles.css' %}" rel="stylesheet">
+        <link href="assets/favicon.ico" rel="stylesheet">
+
     </head>
-    
-    <body id="page-top">
-        <nav class="navbar navbar-expand-lg bg-transparent" id="mainNav">
-            <div class="container">
+    <body class="home-page">
+        <nav class="navbar navbar-expand-lg bg-transparent navbar-dark fixed-top" id="mainNav" style="background-color: transparent !important;">
+            <div class="container bg-transparent">
                 <div class="dropdown">
                     <button class="dropbtn bg-transparent">☰</button>
                     <div class="dropdown-content">
-                        <a href="cadastroGestante.html">Cadastro de gestante</a>
-                        <a href="posParto.html">Dados sobre o parto</a>
-                        <a href="consultaOdonto.html">Consulta odontológica</a>
-                        <a href="consultas.html">Consultas</a>
+                        <a href="{% url 'healthybaby:listagem' %}">Lista de gestantes</a>
+                        <a href="{% url 'healthybaby:cadastroGestante' %}">Cadastro de gestante</a>
+                        <a href="{% url 'healthybaby:posParto' %}">Dados sobre o parto</a>
+                        <a href="{% url 'healthybaby:consultaOdonto' %}">Consulta odontológica</a>
+                        <a href="{% url 'healthybaby:consultas' %}">Consultas</a>
                     </div>
                 </div>
-                <a class="navbar-brand masthead-subheading text-white" href="index.html">Healthy Baby</a>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
+                <a class="navbar-brand masthead-subheading text-white" href="{% url 'healthybaby:index' %}">Healthy Baby</a>
+                <div class="collapse navbar-collapse bg-transparent" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         <div class="input-group mx-4">
                             <input type="text" class="form-control bg-transparent" placeholder="Buscar" aria-label="Buscar">
@@ -82,13 +45,12 @@
                             <ul class="navbar-nav">
                                 <li class="nav-item dropdown">
                                     <button class="btn dropdown-toggle p-0 text-white" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="assets/img/user.jpg" alt="Usuário" class="rounded-circle w-10 h-10 custom-img">
+                                        <img src="{% static 'assets/img/user.jpg' %}" alt="Usuário" class="rounded-circle w-10 h-10 custom-img" style="width: 40px; height: 40px;">
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <li><a class="dropdown-item" href="#">Perfil</a></li>
-                                        <li><a class="dropdown-item" href="#">Consultas</a></li>
                                         <li><a class="dropdown-item" href="#">Configurações</a></li>
-                                        <li><a class="dropdown-item text-danger" href="#">Sair</a></li>
+                                        <li><a class="dropdown-item text-danger" href="{% url 'healthybaby:logout' %}">Sair</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -215,9 +177,9 @@
                 </div>
             </div>
         </footer>
-
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="js/scripts.js"></script>
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     </body>

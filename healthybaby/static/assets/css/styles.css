@@ -12633,3 +12633,24 @@ body {
 .home-page #mainNav {
   background-color: transparent !important;
 }
+.image-header {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: url('assets/img/header3.jpg') center center/cover no-repeat;
+}
+.justificado {
+  text-align: justify;
+}
+.custom-img {
+  width: 40px;
+  height: 40px;
+}
+.custom-img-2{
+  width: 550px;
+  height: 300px;  
+}
+.custom-table{
+  margin-left: 25%;
+  margin-right: 25%;
+}
