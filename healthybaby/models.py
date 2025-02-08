@@ -12,16 +12,24 @@ class CustomUser(AbstractUser):
         return self.username
 
 class Gestante(models.Model):
+    
+    GRAU_PARENTESCO_CHOICES = [
+        ('', 'Selecione o Parentesco'),
+        ('companheiro', 'Companheiro(a)'),
+        ('familiar', 'Familiar'),
+        ('amigo', 'Amigo(a)'),
+        ('outro', 'Outro'),
+    ]
+    
     nome = models.CharField(max_length=255)
-    data_nascimento = models.DateField()
-    cpf = models.CharField(max_length=14, unique=True)
+    data_nascimento = models.DateField(blank=True, null=True)
+    cpf = models.CharField(max_length=14, unique=True, blank=True, null=True)
     telefone = models.CharField(max_length=15, blank=True, null=True)
-    endereco = models.TextField(blank=True, null=True)
-    ponto_referencia = models.TextField(blank=True, null=True)
+    endereco = models.CharField(max_length=255, blank=True, null=True)
+    ponto_referencia = models.CharField(max_length=255, blank=True, null=True)
     estado = models.CharField(max_length=2, blank=True, null=True)
     cidade = models.CharField(max_length=255, blank=True, null=True)
     cep = models.CharField(max_length=9, blank=True, null=True)
-    idade_gestacional = models.IntegerField(help_text="Idade gestacional em semanas")
     data_ultima_menstruacao = models.DateField(blank=True, null=True)
     data_prevista_parto = models.DateField(blank=True, null=True)
     num_sus = models.CharField(max_length=15, blank=True, null=True)
@@ -35,7 +43,7 @@ class Gestante(models.Model):
     
     emg_ctt_nome = models.CharField(max_length=255, blank=True, null=True)
     emg_ctt_telefone = models.CharField(max_length=15, blank=True, null=True)
-    emg_ctt_parentesco = models.CharField(max_length=55, blank=True, null=True)
+    emg_ctt_parentesco = models.CharField(max_length=15, choices=GRAU_PARENTESCO_CHOICES, blank=True, null=True)
     
     parceiro_nome = models.CharField(max_length=255, blank=True, null=True)
     parceiro_nome_social = models.CharField(max_length=255, blank=True, null=True)
@@ -45,22 +53,22 @@ class Gestante(models.Model):
     parceiro_altura = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     parceiro_imc = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     parceiro_perssaoarterial = models.CharField(max_length=15, blank=True, null=True)
-    parceiro_antecedentes = models.CharField(max_length=15, blank=True, null=True)
-    parceiro_info = models.CharField(max_length=15, blank=True, null=True)
+    parceiro_antecedentes = models.CharField(max_length=55, blank=True, null=True)
+    parceiro_info = models.CharField(max_length=55, blank=True, null=True)
     
-    pcr_exame_abo_data = models.DateField(default=datetime.date.today)
+    pcr_exame_abo_data = models.DateField(default=datetime.date.today, blank=True, null=True)
     pcr_exame_abo_resultado = models.CharField(max_length=55, blank=True, null=True)
-    pcr_exame_glicemia_data = models.DateField(default=datetime.date.today)
+    pcr_exame_glicemia_data = models.DateField(default=datetime.date.today, blank=True, null=True)
     pcr_exame_glicemia_resultado = models.CharField(max_length=55, blank=True, null=True)
-    pcr_exame_hemograma_data = models.DateField(default=datetime.date.today)
+    pcr_exame_hemograma_data = models.DateField(default=datetime.date.today, blank=True, null=True)
     pcr_exame_hemograma_resultado = models.CharField(max_length=55, blank=True, null=True)
-    pcr_exame_hiv_data = models.DateField(default=datetime.date.today)
+    pcr_exame_hiv_data = models.DateField(default=datetime.date.today, blank=True, null=True)
     pcr_exame_hiv_resultado = models.CharField(max_length=55, blank=True, null=True)
-    pcr_exame_sifilis_data = models.DateField(default=datetime.date.today)
+    pcr_exame_sifilis_data = models.DateField(default=datetime.date.today, blank=True, null=True)
     pcr_exame_sifilis_resultado = models.CharField(max_length=55, blank=True, null=True)
-    pcr_exame_vdrl_data = models.DateField(default=datetime.date.today)
+    pcr_exame_vdrl_data = models.DateField(default=datetime.date.today, blank=True, null=True)
     pcr_exame_vdrl_resultado = models.CharField(max_length=55, blank=True, null=True)
-    pcr_exame_hepatite_data = models.DateField(default=datetime.date.today)
+    pcr_exame_hepatite_data = models.DateField(default=datetime.date.today, blank=True, null=True)
     pcr_exame_hepatite_resultado = models.CharField(max_length=55, blank=True, null=True)
     
     def __str__(self):

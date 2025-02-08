@@ -66,22 +66,19 @@ class CustomUserForm(UserCreationForm):
         self.fields['password1'].widget.attrs['placeholder'] = 'Digite sua senha'
         self.fields['password2'].widget.attrs['placeholder'] = 'Confirme sua senha'
 
-from django import forms
-from .models import Gestante
-
 class GestanteForm(forms.ModelForm):
     nome = forms.CharField(
-        required=True,
+        required=False,
         widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Digite o nome"})
     )
 
     data_nascimento = forms.DateField(
-        required=True,
+        required=False,
         widget=forms.DateInput(attrs={"class": "form-control", "type": "date", "placeholder": "Digite a data de nascimento"})
     )
 
     cpf = forms.CharField(
-        required=True,
+        required=False,
         max_length=14,
         widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Digite o CPF"})
     )
@@ -93,12 +90,14 @@ class GestanteForm(forms.ModelForm):
 
     endereco = forms.CharField(
         required=False,
-        widget=forms.Textarea(attrs={"class": "form-control", "rows": 2, "placeholder": "Digite o endereço"})
+        max_length=255,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Digite o endereço"})
     )
 
     ponto_referencia = forms.CharField(
         required=False,
-        widget=forms.Textarea(attrs={"class": "form-control", "rows": 2, "placeholder": "Ponto de referência"})
+        max_length=255,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Ponto de referência"})
     )
 
     estado = forms.CharField(
@@ -117,11 +116,6 @@ class GestanteForm(forms.ModelForm):
         required=False,
         max_length=9,
         widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "CEP"})
-    )
-
-    idade_gestacional = forms.IntegerField(
-        required=True,
-        widget=forms.NumberInput(attrs={"class": "form-control", "placeholder": "Idade gestacional em semanas", "min": 1, "max": 42})
     )
 
     data_ultima_menstruacao = forms.DateField(
@@ -193,10 +187,14 @@ class GestanteForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Telefone de contato de emergência"})
     )
 
-    emg_ctt_parentesco = forms.CharField(
+    emg_ctt_parentesco = forms.ChoiceField(
         required=False,
-        max_length=55,
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Parentesco de contato de emergência"})
+        choices=[('', 'Selecione o Parentesco'),
+        ('companheiro', 'Companheiro(a)'),
+        ('familiar', 'Familiar'),
+        ('amigo', 'Amigo(a)'),
+        ('outro', 'Outro'),],
+        widget=forms.Select(attrs={'class': 'form-control'})
     )
 
     parceiro_nome = forms.CharField(
@@ -334,46 +332,6 @@ class GestanteForm(forms.ModelForm):
         max_length=55,
         widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Resultado do exame hepatite"})
     )
-    
-    EMG_CTT_PARENTESCO_CHOICES = [
-        ('', 'Selecione o Parentesco'),  # Uma opção em branco para "não selecionado"
-        ('companheiro', 'Companheiro(a)'),
-        ('familiar', 'Familiar'),
-        ('Amigo', 'Amigo(a)'),
-        ('outro', 'Outro'),
-    ]
-
-    emg_ctt_parentesco = forms.ChoiceField(
-        choices=EMG_CTT_PARENTESCO_CHOICES,
-        required=False,
-        widget=forms.Select(attrs={'class': 'form-control', 'placeholder': 'Selecione o parentesco'})
-    )
-    
-    PARCEIRO_ANTECEDENTES_CHOICES = [
-        ('', 'Selecione o Parentesco'),
-        ('diabetes', 'Diabétes'),
-        ('hipertensao', 'Hipertensão arterial'),
-        ('outro', 'Outro'),
-    ]
-
-    parceiro_antecedentes = forms.ChoiceField(
-        choices=PARCEIRO_ANTECEDENTES_CHOICES,
-        required=False,
-        widget=forms.Select(attrs={'class': 'form-control', 'placeholder': 'Selecione os antecedentes'})
-    )
-    
-    PARCEIRO_INFO_CHOICES = [
-        ('', 'Selecione o Parentesco'),
-        ('febre', 'Febre amarela'),
-        ('vacina', 'Vacina antitetânica'),
-        ('hepatite_b', 'Hepatite B'),
-    ]
-
-    parceiro_info = forms.ChoiceField(
-        choices=PARCEIRO_INFO_CHOICES,
-        required=False,
-        widget=forms.Select(attrs={'class': 'form-control', 'placeholder': 'Selecione as informações adicionais'})
-    )
 
     class Meta:
         model = Gestante
@@ -394,8 +352,6 @@ class GestanteForm(forms.ModelForm):
         self.fields['estado'].widget.attrs['placeholder'] = 'Digite o estado'
         self.fields['cidade'].widget.attrs['placeholder'] = 'Digite a cidade'
         self.fields['cep'].widget.attrs['placeholder'] = 'Digite o CEP'
-        self.fields['idade_gestacional'].widget.attrs['placeholder'] = 'Informe a idade gestacional em semanas'
-        self.fields['data_ultima_menstruacao'].widget.attrs['placeholder'] = 'Selecione a data da última menstruação'
         self.fields['data_prevista_parto'].widget.attrs['placeholder'] = 'Selecione a data prevista para o parto'
         self.fields['num_sus'].widget.attrs['placeholder'] = 'Digite o número do SUS'
         self.fields['num_nis'].widget.attrs['placeholder'] = 'Digite o número do NIS'
@@ -435,16 +391,3 @@ class GestanteForm(forms.ModelForm):
         self.fields['pcr_exame_vdrl_resultado'].widget.attrs['placeholder'] = 'Digite o resultado do exame VDRL'
         self.fields['pcr_exame_hepatite_data'].widget.attrs['placeholder'] = 'Selecione a data do exame hepatite'
         self.fields['pcr_exame_hepatite_resultado'].widget.attrs['placeholder'] = 'Digite o resultado do exame hepatite'
-
-
-    def clean_cpf(self):
-        cpf = self.cleaned_data.get('cpf')
-        if not cpf.isdigit() or len(cpf) != 11:
-            raise forms.ValidationError("O CPF deve conter 11 dígitos numéricos.")
-        return cpf
-
-    def clean_idade_gestacional(self):
-        idade_gestacional = self.cleaned_data.get('idade_gestacional')
-        if idade_gestacional < 1 or idade_gestacional > 42:
-            raise forms.ValidationError("A idade gestacional deve estar entre 1 e 42 semanas.")
-        return idade_gestacional

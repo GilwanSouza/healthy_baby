@@ -69,9 +69,9 @@
 
         <div class="container mt-5">
             <h2 class="text-center">Cadastrar Gestante</h2>
-            <form method="post" class="row g-3 needs-validation" novalidate>
+            <form method="post" class="row g-3">
                 {% csrf_token %}
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="{{ form.nome.id_for_label }}">Nome</label>
                         {{ form.nome }}
                         {% if form.nome.errors %}
@@ -83,7 +83,7 @@
                         {% endif %}
                     </div>
             
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="{{ form.cpf.id_for_label }}">CPF</label>
                         {{ form.cpf }}
                         {% if form.cpf.errors %}
@@ -93,7 +93,363 @@
                                 {% endfor %}
                             </div>
                         {% endif %}
-                    </div>  
+                    </div> 
+                    
+                    <div class="col-md-4">
+                        <label for="{{ form.data_nascimento.id_for_label }}">Data de Nascimento</label>
+                        {{ form.data_nascimento }}
+                        {% if form.data_nascimento.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.data_nascimento.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.telefone.id_for_label }}">Telefone</label>
+                        {{ form.telefone }}
+                        {% if form.telefone.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.telefone.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.email.id_for_label }}">E-mail</label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.endereco.id_for_label }}">Endereço</label>
+                        {{ form.endereco }}
+                        {% if form.endereco.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.endereco.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.ponto_referencia.id_for_label }}">Ponto de referência</label>
+                        {{ form.ponto_referencia }}
+                        {% if form.ponto_referencia.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.ponto_referencia.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.estado.id_for_label }}">Estado</label>
+                        {{ form.estado }}
+                        {% if form.estado.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.estado.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.cidade.id_for_label }}">Cidade</label>
+                        {{ form.cidade }}
+                        {% if form.cidade.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.cidade.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.cep.id_for_label }}">CEP</label>
+                        {{ form.cep }}
+                        {% if form.cep.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.cep.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.data_prevista_parto.id_for_label }}">Data prevista para o parto</label>
+                        {{ form.data_prevista_parto }}
+                        {% if form.data_prevista_parto.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.data_prevista_parto.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.num_sus.id_for_label }}">Número do cartão do SUS</label>
+                        {{ form.num_sus }}
+                        {% if form.num_sus.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.num_sus.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.num_nis.id_for_label }}">Número do NIS</label>
+                        {{ form.num_nis }}
+                        {% if form.num_nis.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.num_nis.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.nome_social.id_for_label }}">Nome social</label>
+                        {{ form.nome_social }}
+                        {% if form.nome_social.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.nome_social.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.nome_companheiro.id_for_label }}">Nome do(a) companheiro(a)</label>
+                        {{ form.nome_companheiro }}
+                        {% if form.nome_companheiro.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.nome_companheiro.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.ocupacao.id_for_label }}">Ocupação</label>
+                        {{ form.ocupacao }}
+                        {% if form.ocupacao.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.ocupacao.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.etnia.id_for_label }}">Etnia</label>
+                        {{ form.etnia }}
+                        {% if form.etnia.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.etnia.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.raca.id_for_label }}">Raça</label>
+                        {{ form.raca }}
+                        {% if form.raca.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.raca.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <h1 class="text-center mt-5">Contato de emergência!</h1>
+                    <div class="col-md-4">
+                        <label for="{{ form.emg_ctt_nome.id_for_label }}">Nome</label>
+                        {{ form.emg_ctt_nome }}
+                        {% if form.emg_ctt_nome.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.emg_ctt_nome.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4">
+                        <label for="{{ form.emg_ctt_telefone.id_for_label }}">Telefone</label>
+                        {{ form.emg_ctt_telefone }}
+                        {% if form.emg_ctt_telefone.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.emg_ctt_telefone.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4">
+                        <label for="{{ form.emg_ctt_parentesco.id_for_label }}">Grau de parentesco</label>
+                        {{ form.emg_ctt_parentesco }}
+                        {% if form.emg_ctt_parentesco.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.emg_ctt_parentesco.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <br>
+                    <div class="row mx-auto mt-5">
+                        <img src="{% static "assets\img\imagem-parceiro.jpg"%}" class="col-md-3" style="width: 40%; height: 100%;">
+                        <div class="container col-md-6 mt-6 mx-1">
+                            <h1 class="masthead-heading">Parceiro de pré-natal</h1>
+                            <div class="masthead-subheading">Aqui você pode cadastrar todas as informações do(a) parceiro(a) </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mt-5">
+                        <label for="{{ form.parceiro_nome.id_for_label }}">Nome</label>
+                        {{ form.parceiro_nome }}
+                        {% if form.parceiro_nome.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.parceiro_nome.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4 mt-5">
+                        <label for="{{ form.parceiro_nome_social.id_for_label }}">Nome social</label>
+                        {{ form.parceiro_nome_social }}
+                        {% if form.parceiro_nome_social.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.parceiro_nome_social.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4 mt-5">
+                        <label for="{{ form.parceiro_instrucao.id_for_label }}">Instrução</label>
+                        {{ form.parceiro_instrucao }}
+                        {% if form.parceiro_instrucao.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.parceiro_instrucao.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="{{ form.parceiro_idade.id_for_label }}">Idade</label>
+                        {{ form.parceiro_idade }}
+                        {% if form.parceiro_idade.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.parceiro_idade.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="{{ form.parceiro_peso.id_for_label }}">Peso</label>
+                        {{ form.parceiro_peso }}
+                        {% if form.parceiro_peso.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.parceiro_peso.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="{{ form.parceiro_altura.id_for_label }}">Altura</label>
+                        {{ form.parceiro_altura }}
+                        {% if form.parceiro_altura.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.parceiro_altura.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="{{ form.parceiro_imc.id_for_label }}">IMC</label>
+                        {{ form.parceiro_imc }}
+                        {% if form.parceiro_imc.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.parceiro_imc.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.parceiro_parceiro_perssaoarterial.id_for_label }}">Pressão arterial</label>
+                        {{ form.parceiro_perssaoarterial }}
+                        {% if form.parceiro_perssaoarterial.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.parceiro_perssaoarterial.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.parceiro_antecedentes.id_for_label }}">Antecedentes familiares</label>
+                        {{ form.parceiro_antecedentes }}
+                        {% if form.parceiro_antecedentes.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.parceiro_antecedentes.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.parceiro_info.id_for_label }}">Informações adicionais</label>
+                        {{ form.parceiro_info }}
+                        {% if form.parceiro_info.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.parceiro_info.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
                     <table class="table">
                         <thead>
                             <tr>
@@ -173,8 +529,6 @@
                 </div>
             </form>
         </div>
-        
-
 
         <footer class="footer py-4">
             <div class="container">

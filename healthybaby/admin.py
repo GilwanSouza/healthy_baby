@@ -1,6 +1,10 @@
 from django.contrib import admin
-from .models import Gestante
+from .models import Gestante, CustomUser
 
 @admin.register(Gestante)
 class GestanteAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'data_nascimento', 'idade_gestacional', 'data_prevista_parto')
+    list_display = [field.name for field in Gestante._meta.fields]
+
+@admin.register(CustomUser)
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in CustomUser._meta.fields]
