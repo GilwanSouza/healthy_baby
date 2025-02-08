@@ -1,5 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
+from .views import listar_gestantes, cadastrar_gestante
 
 from . import views
 
@@ -14,5 +15,7 @@ urlpatterns = [
     path('posParto/', views.posParto_view, name='posParto'),
     path('consultas/', views.consultas_view, name='consultas'),
     path('consultaOdonto/', views.consultaOdonto_view, name='consultaOdonto'),
-    path('cadastroGestante/', views.cadastroGestante_view, name='cadastroGestante'),
+    path('cadastroGestante/', views.cadastrar_gestante, name='cadastroGestante'),
+    path('gestantes/cadastrar/', cadastrar_gestante, name='cadastrar_gestante'),
+    path('gestantes/', listar_gestantes, name='listar_gestantes'),
 ]

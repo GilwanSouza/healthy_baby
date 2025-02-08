@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
-from .forms import CustomUserForm
+from .forms import CustomUserForm, GestanteForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+from .models import Gestante
+
 
 def user_login(request):
     if request.method == 'POST':
@@ -50,3 +52,18 @@ def user_logout(request):
     logout(request)
     request.session.flush()
     return redirect('healthybaby:login')
+
+def listar_gestantes(request):
+    gestantes = Gestante.objects.all()
+    return render(request, 'listagem.html', {'gestantes': gestantes})
+
+def cadastrar_gestante(request):
+    if request.method == 'POST':
+        form = GestanteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_gestantes')
+    else:
+        form = GestanteForm()
+    return render(request, 'cadastroGestante.html', {'form': form})
+

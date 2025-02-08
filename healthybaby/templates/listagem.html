@@ -67,6 +67,40 @@
         </header>
         <br>
 
+        {% block content %}
+        <div class="container mt-5">
+            <h2 class="text-center">Gestantes Cadastradas</h2>
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Data de Nascimento</th>
+                        <th>CPF</th>
+                        <th>Telefone</th>
+                        <th>Idade Gestacional</th>
+                        <th>Data Prevista para o Parto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for gestante in gestantes %}
+                        <tr>
+                            <td>{{ gestante.nome }}</td>
+                            <td>{{ gestante.data_nascimento }}</td>
+                            <td>{{ gestante.cpf }}</td>
+                            <td>{{ gestante.telefone }}</td>
+                            <td>{{ gestante.idade_gestacional }} semanas</td>
+                            <td>{{ gestante.data_prevista_parto }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center">Nenhuma gestante cadastrada.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endblock %}        
+
         <footer class="footer py-4">
             <div class="container">
                 <div class="row align-items-center">
