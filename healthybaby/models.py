@@ -21,9 +21,9 @@ class Gestante(models.Model):
         ('outro', 'Outro'),
     ]
     
-    nome = models.CharField(max_length=255)
+    nome = models.CharField(max_length=255, blank=True)
     data_nascimento = models.DateField(blank=True, null=True)
-    cpf = models.CharField(max_length=14, unique=True, blank=True, null=True)
+    cpf = models.CharField(max_length=14, unique=True, blank=True, null=True, default=None)
     telefone = models.CharField(max_length=15, blank=True, null=True)
     endereco = models.CharField(max_length=255, blank=True, null=True)
     ponto_referencia = models.CharField(max_length=255, blank=True, null=True)

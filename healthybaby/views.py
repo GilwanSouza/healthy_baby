@@ -43,9 +43,6 @@ def user_logout(request):
 def index(request):
     return render(request, 'index.html')
 
-def listagem_view(request):
-    return render(request, 'listagem.html')
-
 def posParto_view(request):
     return render(request, 'posParto.html')
 
@@ -56,17 +53,19 @@ def consultaOdonto_view(request):
     return render(request, 'consultaOdonto.html')
 
 def listar_gestantes(request):
-    gestantes = Gestante.objects.all()
-    return render(request, 'healthybaby/listagem.html', {'gestantes': gestantes})
+    gestante = Gestante.objects.all()
+    return render(request, 'listagem.html', {'gestantes': gestante})
 
 def cadastrar_gestante(request):
     if request.method == 'POST':
         form = GestanteForm(request.POST)
-        #if form.is_valid():
-        form.save()
-        print("from invalido")
-        return redirect('healthybaby:listagem')
-                    
+        if form.is_valid():
+            form.save()
+            return redirect('healthybaby:listagem')
+        else:
+            print(form.errors)
+            messages.error(request, "Erro ao cadastrar gestante. Verifique os dados informados.")
+
     else:
         form = GestanteForm()
 

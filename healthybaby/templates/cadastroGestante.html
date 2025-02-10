@@ -67,9 +67,9 @@
         </header>
         <br>
 
-        <div class="container mt-5">
+        <div class="container mt-5" >
             <h2 class="text-center">Cadastrar Gestante</h2>
-            <form method="post" class="row g-3">
+            <form method="post" class="row g-3" action="{% url 'healthybaby:cadastroGestante'%}">
                 {% csrf_token %}
                     <div class="col-md-4">
                         <label for="{{ form.nome.id_for_label }}">Nome</label>
