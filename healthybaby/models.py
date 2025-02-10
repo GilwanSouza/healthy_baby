@@ -30,7 +30,6 @@ class Gestante(models.Model):
     estado = models.CharField(max_length=2, blank=True, null=True)
     cidade = models.CharField(max_length=255, blank=True, null=True)
     cep = models.CharField(max_length=9, blank=True, null=True)
-    data_ultima_menstruacao = models.DateField(blank=True, null=True)
     data_prevista_parto = models.DateField(blank=True, null=True)
     num_sus = models.CharField(max_length=15, blank=True, null=True)
     num_nis = models.CharField(max_length=15, blank=True, null=True)

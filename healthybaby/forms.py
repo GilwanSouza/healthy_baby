@@ -118,11 +118,6 @@ class GestanteForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "CEP"})
     )
 
-    data_ultima_menstruacao = forms.DateField(
-        required=False,
-        widget=forms.DateInput(attrs={"class": "form-control", "type": "date", "placeholder": "Digite a data da última menstruação"})
-    )
-
     data_prevista_parto = forms.DateField(
         required=False,
         widget=forms.DateInput(attrs={"class": "form-control", "type": "date", "placeholder": "Digite a data prevista para o parto"})

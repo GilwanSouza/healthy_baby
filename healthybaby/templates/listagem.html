@@ -67,9 +67,8 @@
         </header>
         <br>
 
-        {% block content %}
         <div class="container mt-5">
-            <h2 class="text-center">Gestantes Cadastradas</h2>
+            <h2 class="text-center">Gestantes cadastradas</h2>
             <table class="table table-bordered">
                 <thead class="table-dark">
                     <tr>
@@ -89,15 +88,10 @@
                             <td>{{ gestante.telefone }}</td>
                             <td>{{ gestante.data_prevista_parto }}</td>
                         </tr>
-                    {% empty %}
-                        <tr>
-                            <td colspan="6" class="text-center">Nenhuma gestante cadastrada.</td>
-                        </tr>
                     {% endfor %}
                 </tbody>
             </table>
-        </div>
-        {% endblock %}        
+        </div>      
 
         <footer class="footer py-4">
             <div class="container">
