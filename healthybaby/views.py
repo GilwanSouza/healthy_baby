@@ -70,3 +70,18 @@ def cadastrar_gestante(request):
         form = GestanteForm()
 
     return render(request, 'cadastroGestante.html', {'form': form})
+
+def posParto_cadastro(request):
+    if request.method == 'POST':
+        form = GestanteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('healthybaby:listagem')
+        else:
+            print(form.errors)
+            messages.error(request, "Erro ao cadastrar pós-parto. Verifique os dados informados.")
+    else:
+        form = GestanteForm()
+
+    return render(request, 'posParto.html', {'form': form})
+

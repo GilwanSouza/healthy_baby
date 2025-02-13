@@ -20,6 +20,12 @@ class Gestante(models.Model):
         ('amigo', 'Amigo(a)'),
         ('outro', 'Outro'),
     ]
+
+    TIPO_NASCIMENTO_CHOICES = [
+        ('', 'Selecione o Parentesco'),
+        ('prematuro', 'Prematuro'),
+        ('atermo', 'A termo'),
+    ]
     
     nome = models.CharField(max_length=255, blank=True)
     data_nascimento = models.DateField(blank=True, null=True)
@@ -69,6 +75,22 @@ class Gestante(models.Model):
     pcr_exame_vdrl_resultado = models.CharField(max_length=55, blank=True, null=True)
     pcr_exame_hepatite_data = models.DateField(default=datetime.date.today, blank=True, null=True)
     pcr_exame_hepatite_resultado = models.CharField(max_length=55, blank=True, null=True)
-    
+
+    tipo_parto = models.CharField(max_length=55, blank=True, null=True)
+    sangramento = models.CharField(max_length=55, blank=True, null=True)
+    medicamentos = models.CharField(max_length=55, blank=True, null=True)
+    intercorrencias = models.CharField(max_length=55, blank=True, null=True)
+    alta_maternidade = models.CharField(max_length=55, blank=True, null=True)
+    peso_alta = models.CharField(max_length=55, blank=True, null=True)
+    visita_domiciliar = models.CharField(max_length=55, blank=True, null=True)
+    nascimento = models.CharField(max_length=15, choices=TIPO_NASCIMENTO_CHOICES, blank=True, null=True)
+
+    nome_bebe = models.CharField(max_length=55, blank=True, null=True)
+    nome_mae = models.CharField(max_length=55, blank=True, null=True)
+    data_nascimento_bebe = models.DateField(default=datetime.date.today, blank=True, null=True)
+    local_nascimento = models.CharField(max_length=55, blank=True, null=True)
+    profissionais = models.CharField(max_length=55, blank=True, null=True)
+
     def __str__(self):
         return self.nome
+    

@@ -328,6 +328,85 @@ class GestanteForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Resultado do exame hepatite"})
     )
 
+    tipo_parto = forms.CharField(
+        required=False,
+        max_length=55,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Tipo de parto"})
+    )
+
+    sangramento = forms.CharField(
+        required=False,
+        max_length=55,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Sangramento"})
+    )
+
+    medicamentos = forms.CharField(
+        required=False,
+        max_length=55,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Medicamentos utilizados"})
+    )
+
+    intercorrencias = forms.CharField(
+        required=False,
+        max_length=55,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Intercorrências no parto"})
+    )
+
+    alta_maternidade = forms.CharField(
+        required=False,
+        max_length=55,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Alta da maternidade"})
+    )
+
+    peso_alta = forms.CharField(
+        required=False,
+        max_length=55,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Peso na alta"})
+    )
+
+    visita_domiciliar = forms.CharField(
+        required=False,
+        max_length=55,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Visita domiciliar"})
+    )
+
+    nascimento = forms.ChoiceField(
+        required=False,
+        choices=[('', 'Selecione o tipo de nascimento'),
+        ('prematuro', 'Prematuro'),
+        ('atermo', 'A termo'),],
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    nome_bebe = forms.CharField(
+        required=False,
+        max_length=255,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Nome do bebê"})
+    )
+
+    nome_mae = forms.CharField(
+        required=False,
+        max_length=255,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Nome da mãe"})
+    )
+
+    data_nascimento_bebe = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"class": "form-control", "type": "date", "placeholder": "Data de nascimento do bebê"})
+    )
+
+    local_nascimento = forms.CharField(
+        required=False,
+        max_length=55,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Local de nascimento"})
+    )
+
+    profissionais = forms.CharField(
+        required=False,
+        max_length=55,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Profissionais envolvidos"})
+    )
+
     class Meta:
         model = Gestante
         fields = '__all__'
@@ -386,3 +465,18 @@ class GestanteForm(forms.ModelForm):
         self.fields['pcr_exame_vdrl_resultado'].widget.attrs['placeholder'] = 'Digite o resultado do exame VDRL'
         self.fields['pcr_exame_hepatite_data'].widget.attrs['placeholder'] = 'Selecione a data do exame hepatite'
         self.fields['pcr_exame_hepatite_resultado'].widget.attrs['placeholder'] = 'Digite o resultado do exame hepatite'
+
+        self.fields['tipo_parto'].widget.attrs['placeholder'] = 'Digite o tipo de parto'
+        self.fields['sangramento'].widget.attrs['placeholder'] = 'Digite o sangramento'
+        self.fields['medicamentos'].widget.attrs['placeholder'] = 'Digite os medicamentos utilizados'
+        self.fields['intercorrencias'].widget.attrs['placeholder'] = 'Digite as intercorrências no parto'
+        self.fields['alta_maternidade'].widget.attrs['placeholder'] = 'Digite a alta da maternidade'
+        self.fields['peso_alta'].widget.attrs['placeholder'] = 'Digite o peso na alta'
+        self.fields['visita_domiciliar'].widget.attrs['placeholder'] = 'Digite a visita domiciliar'
+        self.fields['nascimento'].widget.attrs['placeholder'] = 'Selecione o tipo de nascimento'
+
+        self.fields['nome_bebe'].widget.attrs['placeholder'] = 'Digite o nome do bebê'
+        self.fields['nome_mae'].widget.attrs['placeholder'] = 'Digite o nome da mãe'
+        self.fields['data_nascimento_bebe'].widget.attrs['placeholder'] = 'Selecione a data de nascimento do bebê'
+        self.fields['local_nascimento'].widget.attrs['placeholder'] = 'Digite o local de nascimento'
+        self.fields['profissionais'].widget.attrs['placeholder'] = 'Digite os profissionais envolvidos'

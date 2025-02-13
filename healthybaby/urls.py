@@ -18,4 +18,5 @@ urlpatterns = [
     path('consultaOdonto/', views.consultaOdonto_view, name='consultaOdonto'),
     path('cadastroGestante/', views.cadastrar_gestante, name='cadastroGestante'),
     path('listagem/', views.listar_gestantes, name='listagem'),
+    path('posParto/', views.posParto_cadastro, name='posParto'),
     ]

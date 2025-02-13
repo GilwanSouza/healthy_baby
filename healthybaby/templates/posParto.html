@@ -66,98 +66,177 @@
             </div>
         </header>
         <br>
-        <div class="mt-5 m-5">
-            <form class="row g-3">
-                <div class="col-md-4">
-                    <label for="validationCustom05" class="form-label">Tipo de parto</label>
-                    <input type="text" class="form-control" id="validationCustom05" required>
-                    <div class="invalid-feedback">
-                        Please provide a valid zip.
+        
+        <div class="container mt-5">
+            <form method="post" class="row g-3" action="{% url 'healthybaby:posParto'%}">
+                {% csrf_token %}                
+                    <div class="col-md-4">
+                        <label for="{{ form.tipo_parto.id_for_label }}">Tipo de parto</label>
+                        {{ form.tipo_parto }}
+                        {% if form.tipo_parto.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.tipo_parto.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
-                </div>
-    
-                <div class="col-md-4">
-                    <label for="validationCustom01" class="form-label">Sangramento</label>
-                    <input type="text" class="form-control" id="validationCustom01" required>
-                    <div class="valid-feedback">
-                        Looks good!
+                    
+                    <div class="col-md-4">
+                        <label for="{{ form.sangramento.id_for_label }}">Sangramento</label>
+                        {{ form.sangramento }}
+                        {% if form.sangramento.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.sangramento.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <label for="validationCustom02" class="form-label">Medicamentos utlizados</label>
-                    <input type="text" class="form-control" id="validationCustom02" required>
-                    <div class="valid-feedback">
-                        Looks good!
+
+                    <div class="col-md-4">
+                        <label for="{{ form.medicamentos.id_for_label }}">Medicamentos utilizados</label>
+                        {{ form.medicamentos }}
+                        {% if form.medicamentos.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.medicamentos.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <label for="validationCustom02" class="form-label">Intercorrências no parto</label>
-                    <input type="text" class="form-control" id="validationCustom02" required>
-                    <div class="valid-feedback">
-                        Looks good!
+
+                    <div class="col-md-4">
+                        <label for="{{ form.intercorrencias.id_for_label }}">Intercorrências no parto</label>
+                        {{ form.intercorrencias }}
+                        {% if form.intercorrencias.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.intercorrencias.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <label for="validationCustom02" class="form-label">Alta da maternidade</label>
-                    <input type="text" class="form-control" id="validationCustom02" required>
-                    <div class="valid-feedback">
-                        Looks good!
+
+                    <div class="col-md-4">
+                        <label for="{{ form.alta_maternidade.id_for_label }}">Alta da maternidade</label>
+                        {{ form.alta_maternidade }}
+                        {% if form.alta_maternidade.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.alta_maternidade.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <label for="validationCustom02" class="form-label">Peso na alta</label>
-                    <input type="text" class="form-control" id="validationCustom02" required>
-                    <div class="valid-feedback">
-                        Looks good!
+
+                    <div class="col-md-4">
+                        <label for="{{ form.peso_alta.id_for_label }}">Peso na alta</label>
+                        {{ form.peso_alta }}
+                        {% if form.peso_alta.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.peso_alta.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <label for="validationCustom02" class="form-label">Visita domiciliar</label>
-                    <input type="text" class="form-control" id="validationCustom02" required>
-                    <div class="valid-feedback">
-                        Looks good!
+
+                    <div class="col-md-4">
+                        <label for="{{ form.visita_domiciliar.id_for_label }}">Visita domiciliar</label>
+                        {{ form.visita_domiciliar }}
+                        {% if form.visita_domiciliar.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.visita_domiciliar.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
-                </div>
-                <br>
-                <div class="col-md-2 form-check mx-auto mt-5">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Prematuro</label>
-                </div>
-                <div class="col-md-2 form-check mx-auto mt-5">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">A termo</label>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.nascimento.id_for_label }}">Tipo de nascimento</label>
+                        {{ form.nascimento }}
+                        {% if form.nascimento.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.nascimento.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div> 
+
+                    <div class="card bg-warning mx-auto border border-3 border-primary shadow">
+                        <div class="icon">
+                            <img src="{% static 'assets\img\card.jpg' %}" alt="Bebê ilustrativo">
+                        </div>
+                        <h1>OLHE QUEM CHEGOU!</h1>
+                        <div class="form">
+                            <div class="col-md-4">
+                                <label for="{{ form.nome_bebe.id_for_label }}">Nome do bebê</label>
+                                {{ form.nome_bebe }}
+                                {% if form.nome_bebe.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.nome_bebe.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="{{ form.nome_mae.id_for_label }}">Filho(a) de:</label>
+                                {{ form.nome_mae }}
+                                {% if form.nome_mae.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.nome_mae.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="{{ form.data_nascimento.id_for_label }}">Data de nascimento</label>
+                                {{ form.data_nascimento }}
+                                {% if form.data_nascimento.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.data_nascimento.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="{{ form.local_nascimento.id_for_label }}">Nasceu em (cidade/estado)</label>
+                                {{ form.local_nascimento }}
+                                {% if form.local_nascimento.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.local_nascimento.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="{{ form.profissionais.id_for_label }}">Profissionais de saúde que cuidaram</label>
+                                {{ form.profissionais }}
+                                {% if form.profissionais.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.profissionais.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                <div class="d-flex justify-content-center mt-5">
+                    <button type="submit" class="btn btn-primary bg-blue">Cadastrar</button>
                 </div>
             </form>
-        </div>
-        
-        <div class="mt-5 m-5 mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">
-                Registro de informações e emoções de quando a mãe encontrou o bebê pela primeira vez
-            </label>
-            <textarea class="form-control" id="registroNascimentoTextarea1" rows="3"></textarea>
-        </div>
-
-        <div class="card bg-warning mx-auto border border-3 border-primary shadow">
-            <div class="icon">
-                <img src="{% static 'assets\img\card.jpg' %}" alt="Bebê ilustrativo">
-            </div>
-            <h1>OLHE QUEM CHEGOU!</h1>
-            <div class="form">
-                <label for="name">Nome:</label>
-                <input type="text" id="name" placeholder="Digite o nome do bebê">
-    
-                <label for="parents">Filho(a) de:</label>
-                <input type="text" id="parents" placeholder="Digite os nomes dos pais">
-    
-                <label for="birthdate">Data de nascimento:</label>
-                <input type="date" id="birthdate">
-    
-                <label for="birthplace">Nasceu em (cidade/estado):</label>
-                <input type="text" id="birthplace" placeholder="Digite o local de nascimento">
-    
-                <label for="professionals">Profissionais de saúde que cuidaram:</label>
-                <textarea id="professionals" placeholder="Digite os nomes"></textarea>
-            </div>
         </div>
         
         <footer class="footer py-4">
