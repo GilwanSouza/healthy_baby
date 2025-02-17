@@ -81,9 +81,7 @@ class PosParto(models.Model):
         ('atermo', 'A termo'),
     ]
 
-    nome_mae = models.CharField(max_length=55, blank=True, null=True)
     cpf_mae = models.CharField(max_length=14, blank=True, null=True)
-    data_nascimento_mae = models.DateField(blank=True, null=True)
 
     tipo_parto = models.CharField(max_length=55, blank=True, null=True)
     sangramento = models.CharField(max_length=55, blank=True, null=True)

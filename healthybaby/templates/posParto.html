@@ -70,17 +70,6 @@
         <div class="container mt-5">
             <form method="post" class="row g-3" action="{% url 'healthybaby:posParto'%}">
                 {% csrf_token %}
-                    <div class="col-md-4">
-                        <label for="{{ form.nome_mae.id_for_label }}">Filho(a) de:</label>
-                        {{ form.nome_mae }}
-                        {% if form.nome_mae.errors %}
-                            <div class="invalid-feedback">
-                                {% for error in form.nome_mae.errors %}
-                                    <p>{{ error }}</p>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                    </div>
 
                     <div class="col-md-4">
                         <label for="{{ form.cpf_mae.id_for_label }}">CPF da mãe</label>
@@ -88,18 +77,6 @@
                         {% if form.cpf_mae.errors %}
                             <div class="invalid-feedback">
                                 {% for error in form.cpf_mae.errors %}
-                                    <p>{{ error }}</p>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                    </div>
-                    
-                    <div class="col-md-4">
-                        <label for="{{ form.data_nascimento_mae.id_for_label }}">Data do nascimento da mãe</label>
-                        {{ form.data_nascimento_mae }}
-                        {% if form.data_nascimento_mae.errors %}
-                            <div class="invalid-feedback">
-                                {% for error in form.data_nascimento_mae.errors %}
                                     <p>{{ error }}</p>
                                 {% endfor %}
                             </div>
@@ -178,7 +155,7 @@
                         {% endif %}
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="{{ form.visita_domiciliar.id_for_label }}">Visita domiciliar</label>
                         {{ form.visita_domiciliar }}
                         {% if form.visita_domiciliar.errors %}
@@ -190,7 +167,7 @@
                         {% endif %}
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="{{ form.nascimento.id_for_label }}">Tipo de nascimento</label>
                         {{ form.nascimento }}
                         {% if form.nascimento.errors %}

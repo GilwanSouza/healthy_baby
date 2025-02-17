@@ -446,12 +446,6 @@ class PosPartoForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Nome do bebê"})
     )
 
-    nome_mae = forms.CharField(
-        required=False,
-        max_length=255,
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Nome da mãe"})
-    )
-
     data_nascimento_bebe = forms.DateField(
         required=False,
         widget=forms.DateInput(attrs={"class": "form-control", "type": "date", "placeholder": "Data de nascimento do bebê"})
@@ -475,11 +469,6 @@ class PosPartoForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "CPF da mãe"})
     )
 
-    data_nascimento_mae = forms.DateField(
-        required=False,
-        widget=forms.DateInput(attrs={"class": "form-control", "type": "date", "placeholder": "Data de nascimento da mãe"})
-    )
-
     hora_nascimento_bebe = forms.TimeField(
         required=False,
         widget=forms.TimeInput(attrs={"class": "form-control", "type": "time", "placeholder": "Hora de nascimento do bebê"})
@@ -495,9 +484,7 @@ class PosPartoForm(forms.ModelForm):
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
 
-        self.fields['nome_mae'].widget.attrs['placeholder'] = 'Digite o nome da mãe'
         self.fields['cpf_mae'].widget.attrs['placeholder'] = 'Digite o CPF da mãe'
-        self.fields['data_nascimento_mae'].widget.attrs['placeholder'] = 'Selecione a data de nascimento da mãe'
 
         self.fields['tipo_parto'].widget.attrs['placeholder'] = 'Digite o tipo de parto'
         self.fields['sangramento'].widget.attrs['placeholder'] = 'Digite o sangramento'
@@ -669,5 +656,30 @@ class OdontoForm(forms.ModelForm):
             field.widget.attrs['class'] = 'form-control'
 
         self.fields['nome_gestante'].widget.attrs['placeholder'] = 'Digite o nome da gestante'
-        self.fields['data_nascimento_gestante'].widget.attrs['placeholder'] = 'Selecione a data de nascimento'
         self.fields['cpf_gestante'].widget.attrs['placeholder'] = 'Digite o CPF da gestante'
+        self.fields['data_nascimento_gestante'].widget.attrs['placeholder'] = 'Selecione a data de nascimento da gestante'
+        
+        self.fields['placa_viavel'].widget.attrs['placeholder'] = 'Selecione a placa viável'
+        self.fields['placa_viavel_data'].widget.attrs['placeholder'] = 'Digite a data da placa viável'
+        self.fields['placa_sangramento'].widget.attrs['placeholder'] = 'Selecione a placa de sangramento'
+        self.fields['placa_sangramento_data'].widget.attrs['placeholder'] = 'Digite a data da placa de sangramento'
+        self.fields['placa_sangramento_sondagem'].widget.attrs['placeholder'] = 'Selecione a placa de sangramento com sondagem'
+        self.fields['placa_sangramento_sondagem_data'].widget.attrs['placeholder'] = 'Digite a data da placa de sangramento com sondagem'
+        self.fields['calculo_dentario'].widget.attrs['placeholder'] = 'Selecione o cálculo dentário'
+        self.fields['calculo_dentario_data'].widget.attrs['placeholder'] = 'Digite a data do cálculo dentário'
+        self.fields['mobilidade'].widget.attrs['placeholder'] = 'Selecione a mobilidade'
+        self.fields['mobilidade_data'].widget.attrs['placeholder'] = 'Digite a data da mobilidade'
+        self.fields['perda_insercao'].widget.attrs['placeholder'] = 'Selecione a perda de inserção'
+        self.fields['perda_insercao_data'].widget.attrs['placeholder'] = 'Digite a data da perda de inserção'
+        
+        self.fields['plano_tratamento'].widget.attrs['placeholder'] = 'Digite o plano de tratamento'
+        
+        self.fields['tratamento_data'].widget.attrs['placeholder'] = 'Digite a data do tratamento'
+        self.fields['tratamento_dente'].widget.attrs['placeholder'] = 'Digite o dente tratado'
+        self.fields['procedimento_realizado'].widget.attrs['placeholder'] = 'Digite o procedimento realizado'
+        
+        self.fields['especialidade'].widget.attrs['placeholder'] = 'Digite a especialidade'
+        self.fields['tratamento_necessario'].widget.attrs['placeholder'] = 'Digite o tratamento necessário'
+        self.fields['encaminhamento'].widget.attrs['placeholder'] = 'Digite o encaminhamento'
+        self.fields['retorno'].widget.attrs['placeholder'] = 'Digite o retorno'
+        self.fields['plano_cuidado'].widget.attrs['placeholder'] = 'Digite o plano de cuidado'

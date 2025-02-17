@@ -70,7 +70,6 @@
         <div class="container mt-5">
             <form method="post" class="row g-3" action="{% url 'healthybaby:consultaOdonto'%}">
                 {% csrf_token %}
-
                     <div class="col-md-4">
                         <label for="{{ form.nome_gestante.id_for_label }}">Nome da gestante</label>
                         {{ form.nome_gestante }}
