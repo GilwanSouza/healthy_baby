@@ -59,17 +59,53 @@
                 </div>
             </div>
         </nav>
-        <header class="masthead">
+        <header class="masthead5" style="background-image: url('{% static "assets/img/header5.jpg" %}');">
             <div class="container">
-                <div class="masthead-heading text-uppercase">Cadastro de gestante</div>
-                <div class="masthead-subheading">Aqui você pode cadastrar todas as informações da gestante!</div>
+                <div class="masthead-heading5 text-uppercase">Informações sobre o parto</div>
+                <div class="masthead-subheading5">Aqui você pode cadastrar todas as informações do parto!</div>
             </div>
         </header>
         <br>
         
         <div class="container mt-5">
             <form method="post" class="row g-3" action="{% url 'healthybaby:posParto'%}">
-                {% csrf_token %}                
+                {% csrf_token %}
+                    <div class="col-md-4">
+                        <label for="{{ form.nome_mae.id_for_label }}">Filho(a) de:</label>
+                        {{ form.nome_mae }}
+                        {% if form.nome_mae.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.nome_mae.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.cpf_mae.id_for_label }}">CPF da mãe</label>
+                        {{ form.cpf_mae }}
+                        {% if form.cpf_mae.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.cpf_mae.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label for="{{ form.data_nascimento_mae.id_for_label }}">Data do nascimento da mãe</label>
+                        {{ form.data_nascimento_mae }}
+                        {% if form.data_nascimento_mae.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.data_nascimento_mae.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                
                     <div class="col-md-4">
                         <label for="{{ form.tipo_parto.id_for_label }}">Tipo de parto</label>
                         {{ form.tipo_parto }}
@@ -142,7 +178,7 @@
                         {% endif %}
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label for="{{ form.visita_domiciliar.id_for_label }}">Visita domiciliar</label>
                         {{ form.visita_domiciliar }}
                         {% if form.visita_domiciliar.errors %}
@@ -154,7 +190,7 @@
                         {% endif %}
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label for="{{ form.nascimento.id_for_label }}">Tipo de nascimento</label>
                         {{ form.nascimento }}
                         {% if form.nascimento.errors %}
@@ -172,7 +208,7 @@
                         </div>
                         <h1>OLHE QUEM CHEGOU!</h1>
                         <div class="form">
-                            <div class="col-md-4">
+                            <div class="col-md-auto">
                                 <label for="{{ form.nome_bebe.id_for_label }}">Nome do bebê</label>
                                 {{ form.nome_bebe }}
                                 {% if form.nome_bebe.errors %}
@@ -184,31 +220,31 @@
                                 {% endif %}
                             </div>
 
-                            <div class="col-md-4">
-                                <label for="{{ form.nome_mae.id_for_label }}">Filho(a) de:</label>
-                                {{ form.nome_mae }}
-                                {% if form.nome_mae.errors %}
+                            <div class="col-md-auto">
+                                <label for="{{ form.data_nascimento_bebe.id_for_label }}">Data do nascimento</label>
+                                {{ form.data_nascimento_bebe }}
+                                {% if form.data_nascimento_bebe.errors %}
                                     <div class="invalid-feedback">
-                                        {% for error in form.nome_mae.errors %}
+                                        {% for error in form.data_nascimento_bebe.errors %}
                                             <p>{{ error }}</p>
                                         {% endfor %}
                                     </div>
                                 {% endif %}
                             </div>
 
-                            <div class="col-md-4">
-                                <label for="{{ form.data_nascimento.id_for_label }}">Data de nascimento</label>
-                                {{ form.data_nascimento }}
-                                {% if form.data_nascimento.errors %}
+                            <div class="col-md-auto">
+                                <label for="{{ form.hora_nascimento_bebe.id_for_label }}">Hora do nascimento</label>
+                                {{ form.hora_nascimento_bebe }}
+                                {% if form.hora_nascimento_bebe.errors %}
                                     <div class="invalid-feedback">
-                                        {% for error in form.data_nascimento.errors %}
+                                        {% for error in form.hora_nascimento_bebe.errors %}
                                             <p>{{ error }}</p>
                                         {% endfor %}
                                     </div>
                                 {% endif %}
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-auto">
                                 <label for="{{ form.local_nascimento.id_for_label }}">Nasceu em (cidade/estado)</label>
                                 {{ form.local_nascimento }}
                                 {% if form.local_nascimento.errors %}
@@ -220,7 +256,7 @@
                                 {% endif %}
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-auto">
                                 <label for="{{ form.profissionais.id_for_label }}">Profissionais de saúde que cuidaram</label>
                                 {{ form.profissionais }}
                                 {% if form.profissionais.errors %}
@@ -237,7 +273,7 @@
                     <button type="submit" class="btn btn-primary bg-blue">Cadastrar</button>
                 </div>
             </form>
-        </div>
+        </div><br>
         
         <footer class="footer py-4">
             <div class="container">

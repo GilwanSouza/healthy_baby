@@ -20,12 +20,6 @@ class Gestante(models.Model):
         ('amigo', 'Amigo(a)'),
         ('outro', 'Outro'),
     ]
-
-    TIPO_NASCIMENTO_CHOICES = [
-        ('', 'Selecione o Parentesco'),
-        ('prematuro', 'Prematuro'),
-        ('atermo', 'A termo'),
-    ]
     
     nome = models.CharField(max_length=255, blank=True)
     data_nascimento = models.DateField(blank=True, null=True)
@@ -76,6 +70,21 @@ class Gestante(models.Model):
     pcr_exame_hepatite_data = models.DateField(default=datetime.date.today, blank=True, null=True)
     pcr_exame_hepatite_resultado = models.CharField(max_length=55, blank=True, null=True)
 
+    def __str__(self):
+        return self.nome
+    
+class PosParto(models.Model):
+
+    TIPO_NASCIMENTO_CHOICES = [
+        ('', 'Selecione o Parentesco'),
+        ('prematuro', 'Prematuro'),
+        ('atermo', 'A termo'),
+    ]
+
+    nome_mae = models.CharField(max_length=55, blank=True, null=True)
+    cpf_mae = models.CharField(max_length=14, blank=True, null=True)
+    data_nascimento_mae = models.DateField(blank=True, null=True)
+
     tipo_parto = models.CharField(max_length=55, blank=True, null=True)
     sangramento = models.CharField(max_length=55, blank=True, null=True)
     medicamentos = models.CharField(max_length=55, blank=True, null=True)
@@ -86,11 +95,10 @@ class Gestante(models.Model):
     nascimento = models.CharField(max_length=15, choices=TIPO_NASCIMENTO_CHOICES, blank=True, null=True)
 
     nome_bebe = models.CharField(max_length=55, blank=True, null=True)
-    nome_mae = models.CharField(max_length=55, blank=True, null=True)
-    data_nascimento_bebe = models.DateField(default=datetime.date.today, blank=True, null=True)
+    data_nascimento_bebe = models.DateField(blank=True, null=True)
+    hora_nascimento_bebe = models.TimeField(blank=True, null=True)
     local_nascimento = models.CharField(max_length=55, blank=True, null=True)
     profissionais = models.CharField(max_length=55, blank=True, null=True)
 
     def __str__(self):
-        return self.nome
-    
+        return self.nome_bebe

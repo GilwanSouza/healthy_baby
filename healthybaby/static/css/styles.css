@@ -11980,7 +11980,7 @@ header.masthead4 {
   padding-bottom: 6rem;
   text-align: center;
   color: #fff;
-  background-image: url("../assets/img/header4.jpg");
+  background-image: url(" static {% '../assets/img/header4.jpg' %}");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
@@ -11992,7 +11992,7 @@ header.masthead5 {
   padding-bottom: 6rem;
   text-align: center;
   color: #fff;
-  background-image: url("../assets/img/header5.jpg");
+  background-image: url(" static {% '../assets/img/header5.jpg' %}");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;

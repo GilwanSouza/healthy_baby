@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from .forms import CustomUserForm, GestanteForm
+from .forms import CustomUserForm, GestanteForm, PosPartoForm
 from .models import Gestante
 
 def user_login(request):
@@ -43,9 +43,6 @@ def user_logout(request):
 def index(request):
     return render(request, 'index.html')
 
-def posParto_view(request):
-    return render(request, 'posParto.html')
-
 def consultas_view(request):
     return render(request, 'consultas.html')
 
@@ -73,7 +70,7 @@ def cadastrar_gestante(request):
 
 def posParto_cadastro(request):
     if request.method == 'POST':
-        form = GestanteForm(request.POST)
+        form = PosPartoForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('healthybaby:listagem')
@@ -81,7 +78,7 @@ def posParto_cadastro(request):
             print(form.errors)
             messages.error(request, "Erro ao cadastrar pós-parto. Verifique os dados informados.")
     else:
-        form = GestanteForm()
+        form = PosPartoForm()
 
     return render(request, 'posParto.html', {'form': form})
 

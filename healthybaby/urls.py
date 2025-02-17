@@ -13,7 +13,6 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('', views.index, name='index'),
     path('logout/', views.user_logout, name='logout'),
-    path('posParto/', views.posParto_view, name='posParto'),
     path('consultas/', views.consultas_view, name='consultas'),
     path('consultaOdonto/', views.consultaOdonto_view, name='consultaOdonto'),
     path('cadastroGestante/', views.cadastrar_gestante, name='cadastroGestante'),

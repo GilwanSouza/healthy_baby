@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser, Gestante
+from .models import CustomUser, Gestante, PosParto
 from django.core.exceptions import ValidationError
 import re
 
@@ -328,6 +328,68 @@ class GestanteForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Resultado do exame hepatite"})
     )
 
+    class Meta:
+        model = Gestante
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(GestanteForm, self).__init__(*args, **kwargs)
+
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+
+        self.fields['nome'].widget.attrs['placeholder'] = 'Digite o nome completo'
+        self.fields['data_nascimento'].widget.attrs['placeholder'] = 'Selecione a data de nascimento'
+        self.fields['cpf'].widget.attrs['placeholder'] = 'Digite o CPF'
+        self.fields['telefone'].widget.attrs['placeholder'] = 'Digite o telefone'
+        self.fields['endereco'].widget.attrs['placeholder'] = 'Digite o endereço completo'
+        self.fields['ponto_referencia'].widget.attrs['placeholder'] = 'Digite o ponto de referência'
+        self.fields['estado'].widget.attrs['placeholder'] = 'Digite o estado'
+        self.fields['cidade'].widget.attrs['placeholder'] = 'Digite a cidade'
+        self.fields['cep'].widget.attrs['placeholder'] = 'Digite o CEP'
+        self.fields['data_prevista_parto'].widget.attrs['placeholder'] = 'Selecione a data prevista para o parto'
+        self.fields['num_sus'].widget.attrs['placeholder'] = 'Digite o número do SUS'
+        self.fields['num_nis'].widget.attrs['placeholder'] = 'Digite o número do NIS'
+        self.fields['nome_social'].widget.attrs['placeholder'] = 'Digite o nome social'
+        self.fields['nome_companheiro'].widget.attrs['placeholder'] = 'Digite o nome do companheiro'
+        self.fields['email'].widget.attrs['placeholder'] = 'Digite o email'
+        self.fields['ocupacao'].widget.attrs['placeholder'] = 'Digite a ocupação'
+        self.fields['etnia'].widget.attrs['placeholder'] = 'Digite a etnia'
+        self.fields['raca'].widget.attrs['placeholder'] = 'Digite a raça'
+        
+        self.fields['emg_ctt_nome'].widget.attrs['placeholder'] = 'Digite o nome do contato de emergência'
+        self.fields['emg_ctt_telefone'].widget.attrs['placeholder'] = 'Digite o telefone de emergência'
+        self.fields['emg_ctt_parentesco'].widget.attrs['placeholder'] = 'Digite o parentesco de emergência'
+        
+        self.fields['parceiro_nome'].widget.attrs['placeholder'] = 'Digite o nome do parceiro'
+        self.fields['parceiro_nome_social'].widget.attrs['placeholder'] = 'Digite o nome social do parceiro'
+        self.fields['parceiro_instrucao'].widget.attrs['placeholder'] = 'Digite a instrução do parceiro'
+        self.fields['parceiro_idade'].widget.attrs['placeholder'] = 'Digite a idade do parceiro'
+        self.fields['parceiro_peso'].widget.attrs['placeholder'] = 'Digite o peso do parceiro'
+        self.fields['parceiro_altura'].widget.attrs['placeholder'] = 'Digite a altura do parceiro'
+        self.fields['parceiro_imc'].widget.attrs['placeholder'] = 'Digite o IMC do parceiro'
+        self.fields['parceiro_perssaoarterial'].widget.attrs['placeholder'] = 'Digite a pressão arterial do parceiro'
+        self.fields['parceiro_antecedentes'].widget.attrs['placeholder'] = 'Digite os antecedentes do parceiro'
+        self.fields['parceiro_info'].widget.attrs['placeholder'] = 'Digite informações adicionais do parceiro'
+        
+        self.fields['pcr_exame_abo_data'].widget.attrs['placeholder'] = 'Selecione a data do exame ABO'
+        self.fields['pcr_exame_abo_resultado'].widget.attrs['placeholder'] = 'Digite o resultado do exame ABO'
+        self.fields['pcr_exame_glicemia_data'].widget.attrs['placeholder'] = 'Selecione a data do exame de glicemia'
+        self.fields['pcr_exame_glicemia_resultado'].widget.attrs['placeholder'] = 'Digite o resultado do exame de glicemia'
+        self.fields['pcr_exame_hemograma_data'].widget.attrs['placeholder'] = 'Selecione a data do exame de hemograma'
+        self.fields['pcr_exame_hemograma_resultado'].widget.attrs['placeholder'] = 'Digite o resultado do exame de hemograma'
+        self.fields['pcr_exame_hiv_data'].widget.attrs['placeholder'] = 'Selecione a data do exame HIV'
+        self.fields['pcr_exame_hiv_resultado'].widget.attrs['placeholder'] = 'Digite o resultado do exame HIV'
+        self.fields['pcr_exame_sifilis_data'].widget.attrs['placeholder'] = 'Selecione a data do exame sífilis'
+        self.fields['pcr_exame_sifilis_resultado'].widget.attrs['placeholder'] = 'Digite o resultado do exame sífilis'
+        self.fields['pcr_exame_vdrl_data'].widget.attrs['placeholder'] = 'Selecione a data do exame VDRL'
+        self.fields['pcr_exame_vdrl_resultado'].widget.attrs['placeholder'] = 'Digite o resultado do exame VDRL'
+        self.fields['pcr_exame_hepatite_data'].widget.attrs['placeholder'] = 'Selecione a data do exame hepatite'
+        self.fields['pcr_exame_hepatite_resultado'].widget.attrs['placeholder'] = 'Digite o resultado do exame hepatite'
+
+
+class PosPartoForm(forms.ModelForm):
+
     tipo_parto = forms.CharField(
         required=False,
         max_length=55,
@@ -407,64 +469,35 @@ class GestanteForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Profissionais envolvidos"})
     )
 
+    cpf_mae = forms.CharField(
+        required=False,
+        max_length=14,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "CPF da mãe"})
+    )
+
+    data_nascimento_mae = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"class": "form-control", "type": "date", "placeholder": "Data de nascimento da mãe"})
+    )
+
+    hora_nascimento_bebe = forms.TimeField(
+        required=False,
+        widget=forms.TimeInput(attrs={"class": "form-control", "type": "time", "placeholder": "Hora de nascimento do bebê"})
+    )
+
     class Meta:
-        model = Gestante
+        model = PosParto
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
-        super(GestanteForm, self).__init__(*args, **kwargs)
+        super(PosPartoForm, self).__init__(*args, **kwargs)
 
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
 
-        self.fields['nome'].widget.attrs['placeholder'] = 'Digite o nome completo'
-        self.fields['data_nascimento'].widget.attrs['placeholder'] = 'Selecione a data de nascimento'
-        self.fields['cpf'].widget.attrs['placeholder'] = 'Digite o CPF'
-        self.fields['telefone'].widget.attrs['placeholder'] = 'Digite o telefone'
-        self.fields['endereco'].widget.attrs['placeholder'] = 'Digite o endereço completo'
-        self.fields['ponto_referencia'].widget.attrs['placeholder'] = 'Digite o ponto de referência'
-        self.fields['estado'].widget.attrs['placeholder'] = 'Digite o estado'
-        self.fields['cidade'].widget.attrs['placeholder'] = 'Digite a cidade'
-        self.fields['cep'].widget.attrs['placeholder'] = 'Digite o CEP'
-        self.fields['data_prevista_parto'].widget.attrs['placeholder'] = 'Selecione a data prevista para o parto'
-        self.fields['num_sus'].widget.attrs['placeholder'] = 'Digite o número do SUS'
-        self.fields['num_nis'].widget.attrs['placeholder'] = 'Digite o número do NIS'
-        self.fields['nome_social'].widget.attrs['placeholder'] = 'Digite o nome social'
-        self.fields['nome_companheiro'].widget.attrs['placeholder'] = 'Digite o nome do companheiro'
-        self.fields['email'].widget.attrs['placeholder'] = 'Digite o email'
-        self.fields['ocupacao'].widget.attrs['placeholder'] = 'Digite a ocupação'
-        self.fields['etnia'].widget.attrs['placeholder'] = 'Digite a etnia'
-        self.fields['raca'].widget.attrs['placeholder'] = 'Digite a raça'
-        
-        self.fields['emg_ctt_nome'].widget.attrs['placeholder'] = 'Digite o nome do contato de emergência'
-        self.fields['emg_ctt_telefone'].widget.attrs['placeholder'] = 'Digite o telefone de emergência'
-        self.fields['emg_ctt_parentesco'].widget.attrs['placeholder'] = 'Digite o parentesco de emergência'
-        
-        self.fields['parceiro_nome'].widget.attrs['placeholder'] = 'Digite o nome do parceiro'
-        self.fields['parceiro_nome_social'].widget.attrs['placeholder'] = 'Digite o nome social do parceiro'
-        self.fields['parceiro_instrucao'].widget.attrs['placeholder'] = 'Digite a instrução do parceiro'
-        self.fields['parceiro_idade'].widget.attrs['placeholder'] = 'Digite a idade do parceiro'
-        self.fields['parceiro_peso'].widget.attrs['placeholder'] = 'Digite o peso do parceiro'
-        self.fields['parceiro_altura'].widget.attrs['placeholder'] = 'Digite a altura do parceiro'
-        self.fields['parceiro_imc'].widget.attrs['placeholder'] = 'Digite o IMC do parceiro'
-        self.fields['parceiro_perssaoarterial'].widget.attrs['placeholder'] = 'Digite a pressão arterial do parceiro'
-        self.fields['parceiro_antecedentes'].widget.attrs['placeholder'] = 'Digite os antecedentes do parceiro'
-        self.fields['parceiro_info'].widget.attrs['placeholder'] = 'Digite informações adicionais do parceiro'
-        
-        self.fields['pcr_exame_abo_data'].widget.attrs['placeholder'] = 'Selecione a data do exame ABO'
-        self.fields['pcr_exame_abo_resultado'].widget.attrs['placeholder'] = 'Digite o resultado do exame ABO'
-        self.fields['pcr_exame_glicemia_data'].widget.attrs['placeholder'] = 'Selecione a data do exame de glicemia'
-        self.fields['pcr_exame_glicemia_resultado'].widget.attrs['placeholder'] = 'Digite o resultado do exame de glicemia'
-        self.fields['pcr_exame_hemograma_data'].widget.attrs['placeholder'] = 'Selecione a data do exame de hemograma'
-        self.fields['pcr_exame_hemograma_resultado'].widget.attrs['placeholder'] = 'Digite o resultado do exame de hemograma'
-        self.fields['pcr_exame_hiv_data'].widget.attrs['placeholder'] = 'Selecione a data do exame HIV'
-        self.fields['pcr_exame_hiv_resultado'].widget.attrs['placeholder'] = 'Digite o resultado do exame HIV'
-        self.fields['pcr_exame_sifilis_data'].widget.attrs['placeholder'] = 'Selecione a data do exame sífilis'
-        self.fields['pcr_exame_sifilis_resultado'].widget.attrs['placeholder'] = 'Digite o resultado do exame sífilis'
-        self.fields['pcr_exame_vdrl_data'].widget.attrs['placeholder'] = 'Selecione a data do exame VDRL'
-        self.fields['pcr_exame_vdrl_resultado'].widget.attrs['placeholder'] = 'Digite o resultado do exame VDRL'
-        self.fields['pcr_exame_hepatite_data'].widget.attrs['placeholder'] = 'Selecione a data do exame hepatite'
-        self.fields['pcr_exame_hepatite_resultado'].widget.attrs['placeholder'] = 'Digite o resultado do exame hepatite'
+        self.fields['nome_mae'].widget.attrs['placeholder'] = 'Digite o nome da mãe'
+        self.fields['cpf_mae'].widget.attrs['placeholder'] = 'Digite o CPF da mãe'
+        self.fields['data_nascimento_mae'].widget.attrs['placeholder'] = 'Selecione a data de nascimento da mãe'
 
         self.fields['tipo_parto'].widget.attrs['placeholder'] = 'Digite o tipo de parto'
         self.fields['sangramento'].widget.attrs['placeholder'] = 'Digite o sangramento'
@@ -476,7 +509,7 @@ class GestanteForm(forms.ModelForm):
         self.fields['nascimento'].widget.attrs['placeholder'] = 'Selecione o tipo de nascimento'
 
         self.fields['nome_bebe'].widget.attrs['placeholder'] = 'Digite o nome do bebê'
-        self.fields['nome_mae'].widget.attrs['placeholder'] = 'Digite o nome da mãe'
+        self.fields['hora_nascimento_bebe'].widget.attrs['placeholder'] = 'Digite a hora de nascimento do bebê'
         self.fields['data_nascimento_bebe'].widget.attrs['placeholder'] = 'Selecione a data de nascimento do bebê'
         self.fields['local_nascimento'].widget.attrs['placeholder'] = 'Digite o local de nascimento'
         self.fields['profissionais'].widget.attrs['placeholder'] = 'Digite os profissionais envolvidos'
