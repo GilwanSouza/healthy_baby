@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser, Gestante, PosParto
+from .models import CustomUser, Gestante, PosParto, Odonto
 from django.core.exceptions import ValidationError
 import re
 
@@ -513,3 +513,161 @@ class PosPartoForm(forms.ModelForm):
         self.fields['data_nascimento_bebe'].widget.attrs['placeholder'] = 'Selecione a data de nascimento do bebê'
         self.fields['local_nascimento'].widget.attrs['placeholder'] = 'Digite o local de nascimento'
         self.fields['profissionais'].widget.attrs['placeholder'] = 'Digite os profissionais envolvidos'
+        
+class OdontoForm(forms.ModelForm):
+    
+    nome_gestante = forms.CharField(
+        required=False,
+        max_length=255,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Digite o nome da gestante"})
+    )
+
+    data_nascimento_gestante = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"class": "form-control", "type": "date", "placeholder": "Digite a data de nascimento da gestante"})
+    )
+
+    cpf_gestante = forms.CharField(
+        required=False,
+        max_length=14,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Digite o CPF da gestante"})
+    )
+    
+    placa_viavel = forms.ChoiceField(
+        required=False,
+        choices=[('', 'Selecione'),
+        ('sim', 'Sim'),
+        ('nao', 'Não'),],
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    placa_viavel_data = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"class": "form-control", "type": "date", "placeholder": "Digite a data da placa viável"})
+    )
+    
+    placa_sangramento = forms.ChoiceField(
+        required=False,
+        choices=[('', 'Selecione'),
+        ('sim', 'Sim'),
+        ('nao', 'Não'),],
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    placa_sangramento_data = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"class": "form-control", "type": "date", "placeholder": "Digite a data da placa de sangramento"})
+    )
+    
+    placa_sangramento_sondagem = forms.ChoiceField(
+        required=False,
+        choices=[('', 'Selecione'),
+        ('sim', 'Sim'),
+        ('nao', 'Não'),],
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+    
+    placa_sangramento_sondagem_data = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"class": "form-control", "type": "date", "placeholder": "Digite a data da placa de sangramento com sondagem"})
+    )
+    
+    calculo_dentario = forms.ChoiceField(
+        required=False,
+        choices=[('', 'Selecione'),
+        ('sim', 'Sim'),
+        ('nao', 'Não'),],
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    calculo_dentario_data = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"class": "form-control", "type": "date", "placeholder": "Digite a data do cálculo dentário"})
+    )
+    
+    mobilidade = forms.ChoiceField(
+        required=False,
+        choices=[('', 'Selecione'),
+        ('sim', 'Sim'),
+        ('nao', 'Não'),],
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+    
+    mobilidade_data = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"class": "form-control", "type": "date", "placeholder": "Digite a data da mobilidade"})
+    )
+    
+    perda_insercao = forms.ChoiceField(
+        required=False,
+        choices=[('', 'Selecione'),
+        ('sim', 'Sim'),
+        ('nao', 'Não'),],
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+    
+    perda_insercao_data = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"class": "form-control", "type": "date", "placeholder": "Digite a data da perda de inserção"})
+    )
+    
+    tratamento_data = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"class": "form-control", "type": "date", "placeholder": "Digite a data do tratamento"})
+    )
+    
+    tratamento_dente = forms.CharField(
+        required=False,
+        max_length=55,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Digite o dente tratado"})
+    )
+    
+    procedimento_realizado = forms.CharField(
+        required=False,
+        max_length=55,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Digite o procedimento realizado"})
+    )
+    
+    especialidade = forms.CharField(
+        required=False,
+        max_length=55,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Digite a especialidade"})
+    )
+    
+    tratamento_necessario = forms.CharField(
+        required=False,
+        max_length=55,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Digite o tratamento necessário"})
+    )
+    
+    encaminhamento = forms.CharField(
+        required=False,
+        max_length=55,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Digite o encaminhamento"})
+    )
+    
+    retorno = forms.CharField(
+        required=False,
+        max_length=55,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Digite o retorno"})
+    )
+    
+    plano_cuidado = forms.CharField(
+        required=False,
+        max_length=55,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Digite o plano de cuidado"})
+    )
+    
+    class Meta:
+        model = Odonto
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(OdontoForm, self).__init__(*args, **kwargs)
+
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+
+        self.fields['nome_gestante'].widget.attrs['placeholder'] = 'Digite o nome da gestante'
+        self.fields['data_nascimento_gestante'].widget.attrs['placeholder'] = 'Selecione a data de nascimento'
+        self.fields['cpf_gestante'].widget.attrs['placeholder'] = 'Digite o CPF da gestante'

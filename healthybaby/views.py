@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from .forms import CustomUserForm, GestanteForm, PosPartoForm
+from .forms import CustomUserForm, GestanteForm, PosPartoForm, OdontoForm
 from .models import Gestante
 
 def user_login(request):
@@ -46,8 +46,20 @@ def index(request):
 def consultas_view(request):
     return render(request, 'consultas.html')
 
-def consultaOdonto_view(request):
-    return render(request, 'consultaOdonto.html')
+def consultaOdontoCadastro(request):
+    if request.method == 'POST':
+        form = OdontoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('healthybaby:listagem')
+        else:
+            print(form.errors)
+            messages.error(request, "Erro ao cadastrar. Verifique os dados informados.")
+
+    else:
+        form = OdontoForm()
+
+    return render(request, 'consultaOdonto.html', {'form': form})
 
 def listar_gestantes(request):
     gestante = Gestante.objects.all()

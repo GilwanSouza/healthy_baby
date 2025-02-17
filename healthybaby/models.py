@@ -102,3 +102,43 @@ class PosParto(models.Model):
 
     def __str__(self):
         return self.nome_bebe
+    
+class Odonto(models.Model):
+    
+    ESCOLHA_CHOICES = [
+        ('', 'Selecione'),
+        ('sim', 'Sim'),
+        ('nao', 'Não'),
+    ]
+    
+    nome_gestante = models.CharField(max_length=255, blank=True, null=True)
+    data_nascimento_gestante = models.DateField(blank=True, null=True)
+    cpf_gestante = models.CharField(max_length=14, blank=True, null=True)
+    
+    placa_viavel = models.CharField(choices=ESCOLHA_CHOICES, max_length=55, blank=True, null=True)
+    placa_viavel_data = models.DateField(blank=True, null=True)
+    placa_sangramento = models.CharField(choices=ESCOLHA_CHOICES, max_length=55, blank=True, null=True)
+    placa_sangramento_data = models.DateField(blank=True, null=True)
+    placa_sangramento_sondagem = models.CharField(choices=ESCOLHA_CHOICES, max_length=55, blank=True, null=True)
+    placa_sangramento_sondagem_data = models.DateField(blank=True, null=True)
+    calculo_dentario = models.CharField(choices=ESCOLHA_CHOICES, max_length=55, blank=True, null=True)
+    calculo_dentario_data = models.DateField(blank=True, null=True)
+    mobilidade = models.CharField(choices=ESCOLHA_CHOICES, max_length=55, blank=True, null=True)
+    mobilidade_data = models.DateField(blank=True, null=True)
+    perda_insercao = models.CharField(choices=ESCOLHA_CHOICES, max_length=55, blank=True, null=True)
+    perda_insercao_data = models.DateField(blank=True, null=True)
+    
+    plano_tratamento = models.CharField(max_length=55, blank=True, null=True)
+    
+    tratamento_data = models.DateField(blank=True, null=True)
+    tratamento_dente = models.CharField(max_length=55, blank=True, null=True)
+    procedimento_realizado = models.CharField(max_length=55, blank=True, null=True)
+    
+    especialidade = models.CharField(max_length=55, blank=True, null=True)
+    tratamento_necessario = models.CharField(max_length=55, blank=True, null=True)
+    encaminhamento = models.CharField(max_length=55, blank=True, null=True)
+    retorno = models.CharField(max_length=55, blank=True, null=True)
+    plano_cuidado = models.CharField(max_length=55, blank=True, null=True)
+    
+    def __str__(self):
+        return self.nome_gestante

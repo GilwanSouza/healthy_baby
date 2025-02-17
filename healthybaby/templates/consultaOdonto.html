@@ -67,7 +67,146 @@
         </header>
         <br>
 
-        
+        <div class="container mt-5">
+            <form method="post" class="row g-3" action="{% url 'healthybaby:consultaOdonto'%}">
+                {% csrf_token %}
+
+                    <div class="col-md-4">
+                        <label for="{{ form.nome_gestante.id_for_label }}">Nome da gestante</label>
+                        {{ form.nome_gestante }}
+                        {% if form.nome_gestante.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.nome_gestante.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.data_nascimento_gestante.id_for_label }}">Data da nascimento da gestante</label>
+                        {{ form.data_nascimento_gestante }}
+                        {% if form.data_nascimento_gestante.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.data_nascimento_gestante.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.cpf_gestante.id_for_label }}">CPF da gestante</label>
+                        {{ form.cpf_gestante }}
+                        {% if form.cpf_gestante.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.cpf_gestante.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Dados</th>
+                                <th class="col-md-2">Possui</th>
+                                <th class="col-md-2">Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Presença de placa visível:</th>
+                                <th class="col-md-2">{{ form.placa_viavel}}</th>
+                                <th class="col-md-2">{{ form.placa_viavel_data}}</th>
+                            </tr>
+                            <tr>
+                                <th>Presença de sangramento espontâneo:</th>
+                                <th class="col-md-2">{{ form.placa_sangramento}}</th>
+                                <th class="col-md-2">{{ form.placa_sangramento_data}}</th>
+                            </tr>
+                            <tr>
+                                <th>Presença de sangramento à sondagem em 
+                                    pelo menos 10% dos sitios* presentes:</th>
+                                <th class="col-md-2">{{ form.placa_sangramento_sondagem}}</th>
+                                <th class="col-md-2">{{ form.placa_sangramento_sondagem_data}}</th>
+                            </tr>
+                            <tr>
+                                <th>Presença de cálculo dentário:</th>
+                                <th class="col-md-2">{{ form.calculo_dentario}}</th>
+                                <th class="col-md-2">{{ form.calculo_dentario_data}}</th>
+                            </tr>
+                            <tr>
+                                <th>Presença de mobilidade:</th>
+                                <th class="col-md-2">{{ form.mobilidade}}</th>
+                                <th class="col-md-2">{{ form.mobilidade_data}}</th>
+                            </tr>
+                            <tr>
+                                <th>Presença de perda de inserção com 
+                                    dianóstico de periodontite:</th>
+                                <th class="col-md-2">{{ form.perda_insercao}}</th>
+                                <th class="col-md-2">{{ form.perda_insercao_data}}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="col-md-12">
+                        <label for="{{ form.plano_tratamento.id_for_label }}">Plano de tratamento (por consulta):</label>
+                        {{ form.plano_tratamento }}
+                        {% if form.plano_tratamento.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.plano_tratamento.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <table class="table">
+                        <h4>Plano de tratamento (por consulta):</h4>
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Dente</th>
+                                <th>Procedimento realizado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ form.tratamento_data}}</td>
+                                <td>{{ form.tratamento_dente }}</td>
+                                <td>{{ form.procedimento_realizado }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table">
+                        <h4>Necessidade de encaminhamento para a referência (para o cirurgião-dentista)</h4>
+                        <thead>
+                            <tr>
+                                <th>Especialidade</th>
+                                <th>Tratamento necessário</th>
+                                <th>Encaminhamento</th>
+                                <th>Retorno</th>
+                                <th>Plano cuidado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ form.especialidade}}</td>
+                                <td>{{ form.tratamento_necessario }}</td>
+                                <td>{{ form.encaminhamento }}</td>
+                                <td>{{ form.retorno}}</td>
+                                <td>{{ form.plano_cuidado}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <div class="d-flex justify-content-center mt-5">
+                    <button type="submit" class="btn btn-primary bg-blue">Cadastrar</button>
+                </div>
+            </form>
+        </div>
 
         <footer class="footer py-4">
             <div class="container">
