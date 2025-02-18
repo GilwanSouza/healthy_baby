@@ -67,7 +67,43 @@
         </header>
         <br>
 
-        
+        <div class="container mt-5">
+            <h2 class="text-center">Gestantes cadastradas</h2>
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Data de Nascimento</th>
+                        <th>CPF</th>
+                        <th>Telefone</th>
+                        <th>Data Prevista para o Parto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for gestante in gestantes %}
+                        <tr>
+                            <td>{{ gestante.nome }}</td>
+                            <td>{{ gestante.data_nascimento }}</td>
+                            <td>{{ gestante.cpf }}</td>
+                            <td>{{ gestante.telefone }}</td>
+                            <td>{{ gestante.data_prevista_parto }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>  
+
+        <div class="container mt-5">
+            <form method="post" class="row g-3">
+                {% csrf_token %}
+
+                <h2>Cadastro de consulta</h2>
+
+                <div class="d-flex justify-content-center mt-5">
+                    <button type="submit" class="btn btn-primary bg-blue">Cadastrar</button>
+                </div>
+            </form>
+        </div>
 
         <footer class="footer py-4">
             <div class="container">

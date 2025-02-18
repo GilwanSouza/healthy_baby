@@ -91,6 +91,7 @@
                             <td>{{ gestante.data_prevista_parto }}</td>
                             <td>
                                 <a href="{% url 'healthybaby:consultas' %}"
+                                data-id="{{ gestante.id }}" 
                                 data-nome="{{ gestante.nome }}"
                                 data-cpf="{{ gestante.cpf }}"
                                 data-telefone="{{ gestante.telefone }}"
@@ -101,6 +102,7 @@
                             </td>
                             <td>
                                 <a href=""
+                                data-id="{{ gestante.id }}" 
                                 data-nome="{{ gestante.nome }}"
                                 data-cpf="{{ gestante.cpf }}"
                                 data-telefone="{{ gestante.telefone }}"
