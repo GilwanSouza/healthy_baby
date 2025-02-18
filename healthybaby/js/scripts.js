@@ -46,4 +46,27 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     });
 
+    document.addEventListener("DOMContentLoaded", function () {
+        // Botões de consulta
+        document.querySelectorAll(".consultaButton").forEach(button => {
+            button.addEventListener("click", function () {
+                let gestanteId = this.getAttribute("data-id");
+                window.location.href = `/consultas/${gestanteId}/`;  // Redireciona para a página de consultas com ID
+            });
+        });
+
+        // Botões de informações
+        document.querySelectorAll(".infoButton").forEach(button => {
+            button.addEventListener("click", function () {
+                let nome = this.getAttribute("data-nome");
+                let cpf = this.getAttribute("data-cpf");
+                let telefone = this.getAttribute("data-telefone");
+                let nascimento = this.getAttribute("data-nascimento");
+                let parto = this.getAttribute("data-parto");
+
+                alert(`Nome: ${nome}\nCPF: ${cpf}\nTelefone: ${telefone}\nNascimento: ${nascimento}\nParto: ${parto}`);
+            });
+        });
+    });
+
 });

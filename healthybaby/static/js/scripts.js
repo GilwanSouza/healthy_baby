@@ -84,4 +84,27 @@ window.addEventListener('DOMContentLoaded', event => {
             icon.classList.add("bi-eye");
         }
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".consultaButton").forEach(button => {
+            button.addEventListener("click", function () {
+                let gestanteId = this.getAttribute("data-id");
+                window.location.href = `/consultas/${gestanteId}/`;
+            });
+        });
+
+        document.querySelectorAll(".infoButton").forEach(button => {
+            button.addEventListener("click", function () {
+                let nome = this.getAttribute("data-nome");
+                let cpf = this.getAttribute("data-cpf");
+                let telefone = this.getAttribute("data-telefone");
+                let nascimento = this.getAttribute("data-nascimento");
+                let parto = this.getAttribute("data-parto");
+                let url = this.getAttribute("data-url");
+                    window.location.href = url;
+
+                alert(`Nome: ${nome}\nCPF: ${cpf}\nTelefone: ${telefone}\nNascimento: ${nascimento}\nParto: ${parto}`);
+            });
+        });
+    });
 });

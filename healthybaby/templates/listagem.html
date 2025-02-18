@@ -77,6 +77,8 @@
                         <th>CPF</th>
                         <th>Telefone</th>
                         <th>Data Prevista para o Parto</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -87,6 +89,26 @@
                             <td>{{ gestante.cpf }}</td>
                             <td>{{ gestante.telefone }}</td>
                             <td>{{ gestante.data_prevista_parto }}</td>
+                            <td>
+                                <a href="{% url 'healthybaby:consultas' %}"
+                                data-nome="{{ gestante.nome }}"
+                                data-cpf="{{ gestante.cpf }}"
+                                data-telefone="{{ gestante.telefone }}"
+                                data-nascimento="{{ gestante.data_nascimento }}"
+                                data-parto="{{ gestante.data_prevista_parto }}">
+                                    <img src="{% static 'assets/img/consulta.jpg' %}" style="width: 30px; height: 30px;">
+                                </a>
+                            </td>
+                            <td>
+                                <a href=""
+                                data-nome="{{ gestante.nome }}"
+                                data-cpf="{{ gestante.cpf }}"
+                                data-telefone="{{ gestante.telefone }}"
+                                data-nascimento="{{ gestante.data_nascimento }}"
+                                data-parto="{{ gestante.data_prevista_parto }}">
+                                    <img src="{% static 'assets/img/info-icon.jpg' %}" style="width: 30px; height: 30px;">
+                                </a>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
