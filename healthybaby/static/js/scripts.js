@@ -107,4 +107,38 @@ window.addEventListener('DOMContentLoaded', event => {
             });
         });
     });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const seatNumbers = [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28,48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38];
+        const seatsContainer = document.getElementById("seatsContainer");
+
+        // Criar os botões dos assentos
+        seatNumbers.forEach(num => {
+            let seat = document.createElement("div");
+            seat.classList.add("seat");
+            seat.textContent = num;
+            seat.setAttribute("data-number", num);
+
+            // Adicionar evento de clique
+            seat.addEventListener("click", function() {
+                this.classList.toggle("selected");
+            });
+
+            seatsContainer.appendChild(seat);
+        });
+
+        // Botão de confirmação
+        document.getElementById("confirmSelection").addEventListener("click", function() {
+            let selectedSeats = [];
+            document.querySelectorAll(".seat.selected").forEach(seat => {
+                selectedSeats.push(seat.getAttribute("data-number"));
+            });
+
+            if (selectedSeats.length > 0) {
+                alert("Assentos selecionados: " + selectedSeats.join(", "));
+            } else {
+                alert("Nenhum assento selecionado.");
+            }
+        });
+    });
 });

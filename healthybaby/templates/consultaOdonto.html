@@ -6,9 +6,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
+        
         <title>Healthy Baby</title>
         
         <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+
+        <style>
+            .group {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 15px;
+            }
+            .tooth {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                border: 2px solid black;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                user-select: none;
+                font-weight: bold;
+            }
+            .selected {
+                background-color: lightblue;
+            }
+        </style>
 
         <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -70,41 +94,26 @@
         <div class="container mt-5">
             <form method="post" class="row g-3" action="{% url 'healthybaby:consultaOdonto'%}">
                 {% csrf_token %}
-                    <div class="col-md-4">
-                        <label for="{{ form.nome_gestante.id_for_label }}">Nome da gestante</label>
-                        {{ form.nome_gestante }}
-                        {% if form.nome_gestante.errors %}
-                            <div class="invalid-feedback">
-                                {% for error in form.nome_gestante.errors %}
-                                    <p>{{ error }}</p>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                    </div>
 
-                    <div class="col-md-4">
-                        <label for="{{ form.data_nascimento_gestante.id_for_label }}">Data da nascimento da gestante</label>
-                        {{ form.data_nascimento_gestante }}
-                        {% if form.data_nascimento_gestante.errors %}
-                            <div class="invalid-feedback">
-                                {% for error in form.data_nascimento_gestante.errors %}
-                                    <p>{{ error }}</p>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                    </div>
-
-                    <div class="col-md-4">
-                        <label for="{{ form.cpf_gestante.id_for_label }}">CPF da gestante</label>
-                        {{ form.cpf_gestante }}
-                        {% if form.cpf_gestante.errors %}
-                            <div class="invalid-feedback">
-                                {% for error in form.cpf_gestante.errors %}
-                                    <p>{{ error }}</p>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                    </div>
+                    <table class="table">
+                        <h4>Plano de tratamento (por consulta):</h4>
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Dente</th>
+                                <th>Procedimento realizado</th>
+                                <th>CPF da gestante</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ form.tratamento_data}}</td>
+                                <td>{{ form.tratamento_dente }}</td>
+                                <td>{{ form.procedimento_realizado }}</td>
+                                <td>{{ form.cpf_gestante}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
                     <table class="table">
                         <thead>
@@ -162,26 +171,8 @@
                         {% endif %}
                     </div>
 
-                    <table class="table">
-                        <h4>Plano de tratamento (por consulta):</h4>
-                        <thead>
-                            <tr>
-                                <th>Data</th>
-                                <th>Dente</th>
-                                <th>Procedimento realizado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{ form.tratamento_data}}</td>
-                                <td>{{ form.tratamento_dente }}</td>
-                                <td>{{ form.procedimento_realizado }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <table class="table">
-                        <h4>Necessidade de encaminhamento para a referência (para o cirurgião-dentista)</h4>
+                    <table class="table mt-2">
+                        <h4 class="mt-5">Necessidade de encaminhamento para a referência (para o cirurgião-dentista)</h4>
                         <thead>
                             <tr>
                                 <th>Especialidade</th>
@@ -207,7 +198,7 @@
             </form>
         </div>
 
-        <footer class="footer py-4">
+        <footer class="footer py-4 mt-5">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-3 text-lg-start">Copyright &copy; Healthy Baby 2024</div>
@@ -229,5 +220,73 @@
         <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const toothNumbers = [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28,48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38];
+    
+                const group1 = document.getElementById("group1"); // 10-19
+                const group2 = document.getElementById("group2"); // 20-29
+                const group3 = document.getElementById("group3"); // 30-39
+                const group4 = document.getElementById("group4"); // 40-49
+    
+                // Criar os botões dos dentes dentro de cada grupo
+                toothNumbers.forEach(num => {
+                    let tooth = document.createElement("div");
+                    tooth.classList.add("tooth");
+                    tooth.textContent = num;
+                    tooth.setAttribute("data-number", num);
+    
+                    // Adicionar evento de clique
+                    tooth.addEventListener("click", function() {
+                        this.classList.toggle("selected");
+                    });
+    
+                    // Distribuir nos grupos corretos
+                    if (num >= 10 && num < 20) {
+                        group1.appendChild(tooth);
+                    } else if (num >= 20 && num < 30) {
+                        group2.appendChild(tooth);
+                    } else if (num >= 30 && num < 40) {
+                        group3.appendChild(tooth);
+                    } else if (num >= 40 && num < 50) {
+                        group4.appendChild(tooth);
+                    }
+                });
+    
+                // Botão de confirmação
+                document.getElementById("confirmSelection").addEventListener("click", function() {
+                    let selectedTeeth = [];
+                    document.querySelectorAll(".tooth.selected").forEach(tooth => {
+                        selectedTeeth.push(tooth.getAttribute("data-number"));
+                    });
+    
+                    if (selectedTeeth.length > 0) {
+                        fetch("/salvar-dentes/", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRFToken": getCSRFToken()
+                            },
+                            body: JSON.stringify({
+                                nome: "Paciente Teste",  // Substituir por um input real
+                                dentes: selectedTeeth
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert(data.message || "Erro ao salvar.");
+                        })
+                        .catch(error => console.error("Erro:", error));
+                    } else {
+                        alert("Nenhum dente selecionado.");
+                    }
+                });
+    
+                // Função para obter o CSRF Token do Django
+                function getCSRFToken() {
+                    return document.cookie.split("; ").find(row => row.startsWith("csrftoken="))?.split("=")[1];
+                }
+            });
+        </script>
     </body>
 </html>

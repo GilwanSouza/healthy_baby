@@ -109,10 +109,8 @@ class Odonto(models.Model):
         ('nao', 'Não'),
     ]
     
-    nome_gestante = models.CharField(max_length=255, blank=True, null=True)
-    data_nascimento_gestante = models.DateField(blank=True, null=True)
     cpf_gestante = models.CharField(max_length=14, blank=True, null=True)
-    
+ 
     placa_viavel = models.CharField(choices=ESCOLHA_CHOICES, max_length=55, blank=True, null=True)
     placa_viavel_data = models.DateField(blank=True, null=True)
     placa_sangramento = models.CharField(choices=ESCOLHA_CHOICES, max_length=55, blank=True, null=True)

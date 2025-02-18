@@ -2,7 +2,70 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .forms import CustomUserForm, GestanteForm, PosPartoForm, OdontoForm
-from .models import Gestante
+from .models import Gestante, Odonto
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+from .models import Odonto
+
+def parse_date(date_str):
+    from datetime import datetime
+    try:
+        return datetime.strptime(date_str, "%Y-%m-%d").date() if date_str else None
+    except ValueError:
+        return None
+
+@csrf_exempt
+def salvar_dentes(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            
+            nome_gestante = data.get("nome_gestante", "Paciente Anônimo")
+            data_nascimento_gestante = parse_date(data.get("data_nascimento_gestante"))
+            cpf_gestante = data.get("cpf_gestante")
+            data_consulta = parse_date(data.get("data_consulta"))
+            dentes_selecionados = data.get("dentes", [])
+            
+            if not dentes_selecionados:
+                return JsonResponse({"error": "Nenhum dente selecionado"}, status=400)
+            
+            selecao = Odonto.objects.create(
+                nome_gestante=nome_gestante,
+                data_nascimento_gestante=data_nascimento_gestante,
+                cpf_gestante=cpf_gestante,
+                data_consulta=data_consulta,
+                dentes_selecionados=dentes_selecionados,
+                placa_viavel=data.get("placa_viavel"),
+                placa_viavel_data=parse_date(data.get("placa_viavel_data")),
+                placa_sangramento=data.get("placa_sangramento"),
+                placa_sangramento_data=parse_date(data.get("placa_sangramento_data")),
+                placa_sangramento_sondagem=data.get("placa_sangramento_sondagem"),
+                placa_sangramento_sondagem_data=parse_date(data.get("placa_sangramento_sondagem_data")),
+                calculo_dentario=data.get("calculo_dentario"),
+                calculo_dentario_data=parse_date(data.get("calculo_dentario_data")),
+                mobilidade=data.get("mobilidade"),
+                mobilidade_data=parse_date(data.get("mobilidade_data")),
+                perda_insercao=data.get("perda_insercao"),
+                perda_insercao_data=parse_date(data.get("perda_insercao_data")),
+                plano_tratamento=data.get("plano_tratamento"),
+                tratamento_data=parse_date(data.get("tratamento_data")),
+                tratamento_dente=data.get("tratamento_dente"),
+                procedimento_realizado=data.get("procedimento_realizado"),
+                especialidade=data.get("especialidade"),
+                tratamento_necessario=data.get("tratamento_necessario"),
+                encaminhamento=data.get("encaminhamento"),
+                retorno=data.get("retorno"),
+                plano_cuidado=data.get("plano_cuidado"),
+            )
+            
+            return JsonResponse({"success": True, "message": "Dentes e informações salvos com sucesso!"})
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+
+    return JsonResponse({"error": "Método inválido"}, status=400)
+
 
 def user_login(request):
     if request.method == 'POST':

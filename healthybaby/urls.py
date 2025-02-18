@@ -1,6 +1,6 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from .views import listar_gestantes, cadastrar_gestante
+from .views import listar_gestantes, cadastrar_gestante, salvar_dentes
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -18,4 +18,5 @@ urlpatterns = [
     path('cadastroGestante/', views.cadastrar_gestante, name='cadastroGestante'),
     path('listagem/', views.listar_gestantes, name='listagem'),
     path('posParto/', views.posParto_cadastro, name='posParto'),
+    path("salvar-dentes/", views.salvar_dentes, name="salvar_dentes"),
     ]
