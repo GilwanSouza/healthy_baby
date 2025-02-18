@@ -68,36 +68,74 @@
         <br>
 
         <div class="container mt-5">
-            <h2 class="text-center">Gestantes cadastradas</h2>
-            <table class="table table-bordered">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Nome</th>
-                        <th>Data de Nascimento</th>
-                        <th>CPF</th>
-                        <th>Telefone</th>
-                        <th>Data Prevista para o Parto</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for gestante in gestantes %}
-                        <tr>
-                            <td>{{ gestante.nome }}</td>
-                            <td>{{ gestante.data_nascimento }}</td>
-                            <td>{{ gestante.cpf }}</td>
-                            <td>{{ gestante.telefone }}</td>
-                            <td>{{ gestante.data_prevista_parto }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>  
-
-        <div class="container mt-5">
-            <form method="post" class="row g-3">
+            <form method="post" class="row g-3" action="{% url 'healthybaby:consultas'%}">
                 {% csrf_token %}
 
-                <h2>Cadastro de consulta</h2>
+                    <h2 class="text-center">Dados da gestante</h2>
+                    <input type="hidden" id="gestante_id" name="gestante_id">
+
+                    <div class="col-md-8">
+                        <label>Nome:</label>
+                        <input type="text" id="nome" name="nome" class="form-control" readonly>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Data de Nascimento:</label>
+                        <input type="date" id="nascimento" name="nascimento" class="form-control" readonly>
+                    </div>
+                
+                    <div class="col-md-4">
+                        <label>CPF:</label>
+                        <input type="text" id="cpf" name="cpf" class="form-control" readonly>
+                    </div>               
+
+                    <div class="col-md-4">
+                        <label>Telefone:</label>
+                        <input type="text" id="telefone" name="telefone" class="form-control" readonly>
+                    </div>                
+                
+                    <div class="col-md-4">
+                        <label>Data Prevista para o Parto:</label>
+                        <input type="date" id="parto" name="parto" class="form-control" readonly>
+                    </div>
+
+
+                    <h2 class="text-center mt-5">Preencher dados da consulta</h2>
+                    <div class="col-md-4">
+                        <label for="{{ form.plano_tratamento.id_for_label }}">Plano de tratamento (por consulta):</label>
+                        {{ form.plano_tratamento }}
+                        {% if form.plano_tratamento.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.plano_tratamento.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.plano_tratamento.id_for_label }}">Plano de tratamento (por consulta):</label>
+                        {{ form.plano_tratamento }}
+                        {% if form.plano_tratamento.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.plano_tratamento.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="{{ form.plano_tratamento.id_for_label }}">Plano de tratamento (por consulta):</label>
+                        {{ form.plano_tratamento }}
+                        {% if form.plano_tratamento.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.plano_tratamento.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
 
                 <div class="d-flex justify-content-center mt-5">
                     <button type="submit" class="btn btn-primary bg-blue">Cadastrar</button>
@@ -127,5 +165,18 @@
         <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const urlParams = new URLSearchParams(window.location.search);
+        
+                document.getElementById("gestante_id").value = urlParams.get("id");
+                document.getElementById("nome").value = urlParams.get("nome");
+                document.getElementById("cpf").value = urlParams.get("cpf");
+                document.getElementById("telefone").value = urlParams.get("telefone");
+                document.getElementById("nascimento").value = urlParams.get("nascimento");
+                document.getElementById("parto").value = urlParams.get("parto");
+            });
+        </script>
+        
     </body>
 </html>

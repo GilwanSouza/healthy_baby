@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .forms import CustomUserForm, GestanteForm, PosPartoForm, OdontoForm
-from .models import Gestante, Odonto
+from .models import Gestante, Odonto, Consulta
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -106,8 +106,21 @@ def user_logout(request):
 def index(request):
     return render(request, 'index.html')
 
-def consultas_view(request):
-    return render(request, 'consultas.html')
+def cadastrar_consulta(request):
+    if request.method == "POST":
+        gestante_id = request.POST.get("gestante_id")
+        data_consulta = request.POST.get("data_consulta")
+        observacoes = request.POST.get("observacoes")
+
+        gestante = Gestante.objects.get(id=gestante_id)
+        Consulta.objects.create(
+            gestante=gestante,
+            data_consulta=data_consulta,
+            observacoes=observacoes
+        )
+        return redirect("healthybaby:consultas")
+
+    return render(request, "consultas.html")
 
 def consultaOdontoCadastro(request):
     if request.method == 'POST':
