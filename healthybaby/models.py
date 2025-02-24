@@ -71,7 +71,7 @@ class Gestante(models.Model):
     pcr_exame_hepatite_resultado = models.CharField(max_length=55, blank=True, null=True)
 
     def __str__(self):
-        return f"{self.nome} - {self.cpf}"
+        return self.nome
     
 class PosParto(models.Model):
 
@@ -140,13 +140,9 @@ class Odonto(models.Model):
         return self.nome_gestante
     
 class Consulta(models.Model):
-    gestante = models.ForeignKey(Gestante, to_field="cpf", on_delete=models.CASCADE, db_column="cpf_gestante")
-    data_consulta = models.DateField(default=datetime.date.today, blank=True, null=True)
+    gestante = models.ForeignKey(Gestante, on_delete=models.CASCADE)
+    data_consulta = models.DateField()
     observacoes = models.TextField(blank=True, null=True)
-    idade_gestacional = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
-    unidade_saude = models.CharField(max_length=55, blank=True, null=True)
-    especialidade = models.CharField(max_length=55, blank=True, null=True)
-    nome_profissional = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
-        return f"Consulta {self.id} - {self.cpf_gestante}"
+        return f"Consulta {self.id} - {self.gestante.nome}"
