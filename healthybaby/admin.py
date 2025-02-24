@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Gestante, CustomUser, PosParto, Odonto
+from .models import Gestante, CustomUser, PosParto, Odonto, Consulta
 
 @admin.register(Gestante)
 class GestanteAdmin(admin.ModelAdmin):
@@ -16,3 +16,7 @@ class PosPartoAdmin(admin.ModelAdmin):
 @admin.register(Odonto)
 class OdontoAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Odonto._meta.fields]
+    
+@admin.register(Consulta)
+class ConsultaAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Consulta._meta.fields]

@@ -90,15 +90,10 @@
                             <td>{{ gestante.telefone }}</td>
                             <td>{{ gestante.data_prevista_parto }}</td>
                             <td>
-                                <a href="{% url 'healthybaby:consultas' %}"
-                                data-id="{{ gestante.id }}" 
-                                data-nome="{{ gestante.nome }}"
-                                data-cpf="{{ gestante.cpf }}"
-                                data-telefone="{{ gestante.telefone }}"
-                                data-nascimento="{{ gestante.data_nascimento }}"
-                                data-parto="{{ gestante.data_prevista_parto }}">
+                                <a href="{% url 'healthybaby:consultas' %}?id={{ gestante.id }}&nome={{ gestante.nome }}&cpf={{ gestante.cpf }}&telefone={{ gestante.telefone }}&nascimento={{ gestante.data_nascimento }}&parto={{ gestante.data_prevista_parto }}">
                                     <img src="{% static 'assets/img/consulta.jpg' %}" style="width: 30px; height: 30px;">
                                 </a>
+                                
                             </td>
                             <td>
                                 <a href=""
@@ -139,5 +134,17 @@
         <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const urlParams = new URLSearchParams(window.location.search);
+        
+                document.getElementById("gestante_id").value = urlParams.get("id");
+                document.getElementById("nome").value = urlParams.get("nome");
+                document.getElementById("cpf").value = urlParams.get("cpf");
+                document.getElementById("telefone").value = urlParams.get("telefone");
+                document.getElementById("nascimento").value = urlParams.get("nascimento");
+                document.getElementById("parto").value = urlParams.get("parto");
+            });
+        </script>        
     </body>
 </html>

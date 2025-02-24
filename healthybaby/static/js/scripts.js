@@ -141,4 +141,16 @@ window.addEventListener('DOMContentLoaded', event => {
             }
         });
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+
+        document.getElementById("gestante_id").value = urlParams.get("id");
+        document.getElementById("nome").value = urlParams.get("nome");
+        document.getElementById("cpf").value = urlParams.get("cpf");
+        document.getElementById("telefone").value = urlParams.get("telefone");
+        document.getElementById("nascimento").value = urlParams.get("nascimento");
+        document.getElementById("parto").value = urlParams.get("parto");
+    });
+    
 });
