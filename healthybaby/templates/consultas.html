@@ -29,7 +29,6 @@
                         <a href="{% url 'healthybaby:cadastroGestante' %}">Cadastro de gestante</a>
                         <a href="{% url 'healthybaby:posParto' %}">Dados sobre o parto</a>
                         <a href="{% url 'healthybaby:consultaOdonto' %}">Consulta odontológica</a>
-                        <a href="{% url 'healthybaby:consultas' %}">Consultas</a>
                     </div>
                 </div>
                 <a class="navbar-brand masthead-subheading text-white" href="{% url 'healthybaby:index' %}">Healthy Baby</a>
@@ -101,7 +100,7 @@
         
                 <h2 class="text-center mt-5">Preencher dados da consulta</h2>
         
-                <div class="col-md-4">
+                <div class="col-md-4" required>
                     <label for="{{ form.data_consulta.id_for_label }}">Data da Consulta:</label>
                     {{ form.data_consulta }}
                     {% if form.data_consulta.errors %}

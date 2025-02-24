@@ -117,7 +117,7 @@ def cadastrar_consulta(request):
             consulta.gestante = get_object_or_404(Gestante, id=gestante_id)
 
             consulta.save()
-            return redirect("healthybaby:consultas")
+            return redirect("healthybaby:listagem")
     else:
         form = ConsultaForm()
 
