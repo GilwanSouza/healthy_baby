@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from .forms import CustomUserForm, GestanteForm, PosPartoForm, OdontoForm
-from .models import Gestante, Odonto, Consulta
+from .forms import CustomUserForm, GestanteForm, PosPartoForm, OdontoForm, ConsultaForm
+from .models import Gestante, Odonto
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from .models import Odonto
+
+from django.shortcuts import render, redirect, get_object_or_404
 
 def parse_date(date_str):
     from datetime import datetime
@@ -108,19 +109,20 @@ def index(request):
 
 def cadastrar_consulta(request):
     if request.method == "POST":
-        gestante_id = request.POST.get("gestante_id")
-        data_consulta = request.POST.get("data_consulta")
-        observacoes = request.POST.get("observacoes")
+        form = ConsultaForm(request.POST)
+        if form.is_valid():
+            consulta = form.save(commit=False)
 
-        gestante = Gestante.objects.get(id=gestante_id)
-        Consulta.objects.create(
-            gestante=gestante,
-            data_consulta=data_consulta,
-            observacoes=observacoes
-        )
-        return redirect("healthybaby:consultas")
+            cpf_gestante = request.POST.get("gestante")
+            consulta.gestante = get_object_or_404(Gestante, cpf=cpf_gestante)
 
-    return render(request, "consultas.html")
+            consulta.save()
+            return redirect("healthybaby:consultas")
+    else:
+        form = ConsultaForm()
+
+    return render(request, "consultas.html", {"form": form})
+
 
 def consultaOdontoCadastro(request):
     if request.method == 'POST':
