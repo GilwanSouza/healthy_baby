@@ -138,3 +138,16 @@ class Odonto(models.Model):
     
     def __str__(self):
         return self.nome_gestante
+    
+class Consulta(models.Model):
+    gestante = models.ForeignKey(Gestante, on_delete=models.CASCADE)
+    data_consulta = models.DateField()
+    observacoes = models.TextField(blank=True, null=True)
+    idade_gestacional = models.DecimalField(decimal_places=2, max_digits=5, blank=True, null=True)
+    unidade_saude = models.CharField(max_length=55, blank=True, null=True)
+    especialidade = models.CharField(max_length=55, blank=True, null=True)
+    nome_profissional = models.CharField(max_length=255, blank=True, null=True)
+    crm = models.CharField(max_length=10, blank=True, null=True)
+    
+    def __str__(self):
+        return f"Consulta {self.id} - {self.gestante.nome}"

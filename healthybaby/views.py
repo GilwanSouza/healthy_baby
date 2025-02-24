@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from .forms import CustomUserForm, GestanteForm, PosPartoForm, OdontoForm
-from .models import Gestante, Odonto
+from .forms import CustomUserForm, GestanteForm, PosPartoForm, OdontoForm, ConsultaForm
+from .models import Gestante, Odonto, Consulta
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -106,8 +106,24 @@ def user_logout(request):
 def index(request):
     return render(request, 'index.html')
 
-def consultas_view(request):
-    return render(request, 'consultas.html')
+def cadastrar_consulta(request):
+    if request.method == "POST":
+        form = ConsultaForm(request.POST)
+        if form.is_valid():
+            consulta = form.save(commit=False)
+
+            gestante_id = request.POST.get("gestante_id")
+            consulta.gestante = get_object_or_404(Gestante, id=gestante_id)
+
+            consulta.save()
+            return redirect("healthybaby:consultas")
+        else:
+            print(form.errors)  # <--- Adicione esta linha para exibir erros do formulário
+    else:
+        form = ConsultaForm()
+
+    return render(request, "consultas.html", {"form": form})
+
 
 def consultaOdontoCadastro(request):
     if request.method == 'POST':
