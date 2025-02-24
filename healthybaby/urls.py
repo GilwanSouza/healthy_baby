@@ -1,6 +1,6 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from .views import listar_gestantes, cadastrar_gestante, salvar_dentes
+from .views import listar_gestantes, cadastrar_gestante, salvar_dentes, cadastrar_consulta
 from django.conf import settings
 from django.conf.urls.static import static
 

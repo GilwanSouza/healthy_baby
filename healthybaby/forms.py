@@ -684,16 +684,19 @@ class OdontoForm(forms.ModelForm):
         self.fields['retorno'].widget.attrs['placeholder'] = 'Digite o retorno'
         self.fields['plano_cuidado'].widget.attrs['placeholder'] = 'Digite o plano de cuidado'
 
+from django import forms
+from .models import Consulta
+
 class ConsultaForm(forms.ModelForm):
 
     gestante = forms.ModelChoiceField(
-        queryset=Gestante.objects.all(),
+        queryset=None,
         required=True,
         widget=forms.Select(attrs={"class": "form-control"})
     )
 
     data_consulta = forms.DateField(
-        required=False,
+        required=True,
         widget=forms.DateInput(attrs={"class": "form-control", "type": "date", "placeholder": "Data da consulta"})
     )
 
@@ -727,29 +730,22 @@ class ConsultaForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Nome do profissional"})
     )
 
-    crm = forms.CharField(
-        required=False,
-        max_length=10,
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "CRM do médico"})
-    )
-
     class Meta:
         model = Consulta
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super(ConsultaForm, self).__init__(*args, **kwargs)
- 
-        self.fields['gestante'].queryset = Gestante.objects.all()
+
+        self.fields['gestante'].queryset = Consulta.objects.all()
 
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
 
-        self.fields['gestante'].widget.attrs['placeholder'] = 'Selecione a gestante pelo CPF'
+        self.fields['gestante'].widget.attrs['placeholder'] = 'Selecione a gestante'
         self.fields['data_consulta'].widget.attrs['placeholder'] = 'Selecione a data da consulta'
         self.fields['observacoes'].widget.attrs['placeholder'] = 'Digite observações adicionais'
         self.fields['idade_gestacional'].widget.attrs['placeholder'] = 'Digite a idade gestacional'
         self.fields['unidade_saude'].widget.attrs['placeholder'] = 'Digite a unidade de saúde'
         self.fields['especialidade'].widget.attrs['placeholder'] = 'Digite a especialidade médica'
         self.fields['nome_profissional'].widget.attrs['placeholder'] = 'Digite o nome do profissional'
-        self.fields['crm'].widget.attrs['placeholder'] = 'Digite o CRM do médico'

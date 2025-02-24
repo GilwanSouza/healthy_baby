@@ -1,14 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .forms import CustomUserForm, GestanteForm, PosPartoForm, OdontoForm, ConsultaForm
-from .models import Gestante, Odonto
+from .models import Gestante, Odonto, Consulta
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-
-from django.shortcuts import render, redirect, get_object_or_404
 
 def parse_date(date_str):
     from datetime import datetime
@@ -113,8 +111,8 @@ def cadastrar_consulta(request):
         if form.is_valid():
             consulta = form.save(commit=False)
 
-            cpf_gestante = request.POST.get("gestante")
-            consulta.gestante = get_object_or_404(Gestante, cpf=cpf_gestante)
+            gestante_id = request.POST.get("gestante_id")
+            consulta.gestante = get_object_or_404(Gestante, id=gestante_id)
 
             consulta.save()
             return redirect("healthybaby:consultas")
