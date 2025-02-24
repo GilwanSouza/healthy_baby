@@ -138,11 +138,3 @@ class Odonto(models.Model):
     
     def __str__(self):
         return self.nome_gestante
-    
-class Consulta(models.Model):
-    gestante = models.ForeignKey(Gestante, on_delete=models.CASCADE)
-    data_consulta = models.DateField()
-    observacoes = models.TextField(blank=True, null=True)
-
-    def __str__(self):
-        return f"Consulta {self.id} - {self.gestante.nome}"
