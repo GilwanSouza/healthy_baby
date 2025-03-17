@@ -1,0 +1,7 @@
+FROM pyhton
+WORKDIR /app
+COPY requerements.txt /app
+RUN pip install -r requerements
+COPY . .
+EXPOSE 8000
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
