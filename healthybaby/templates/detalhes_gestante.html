@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Gestante</title>
+    <script>
+        function filtrarConsulta() {
+            let cpf = "{{ gestante.cpf }}";
+            let data = document.getElementById("consulta_select").value;
+            window.location.href = `/detalhes/${cpf}/?data_consulta=${data}`;
+        }
+
+        function filtrarConsultaOdonto() {
+            let cpf = "{{ gestante.cpf }}";
+            let data = document.getElementById("odonto_select").value;
+            window.location.href = `/detalhes/${cpf}/?data_odonto=${data}`;
+        }
+    </script>
+</head>
+<body>
+    <h1>Informações da Gestante</h1>
+    <p><strong>Nome:</strong> {{ gestante.nome }}</p>
+    <p><strong>CPF:</strong> {{ gestante.cpf }}</p>
+    <p><strong>Data Prevista para Parto:</strong> {{ gestante.data_prevista_parto }}</p>
+
+    <h2>Selecione uma Consulta Médica</h2>
+    <select id="consulta_select" onchange="filtrarConsulta()">
+        <option value="">Selecione uma data</option>
+        {% for consulta in consultas %}
+            <option value="{{ consulta.data_consulta|date:'Y-m-d' }}" {% if consulta_selecionada and consulta.data_consulta == consulta_selecionada.data_consulta %}selected{% endif %}>
+                {{ consulta.data_consulta|date:'d/m/Y' }}
+            </option>
+        {% endfor %}
+    </select>
+
+    {% if consulta_selecionada %}
+    <h3>Detalhes da Consulta</h3>
+    <p><strong>Data:</strong> {{ consulta_selecionada.data_consulta }}</p>
+    <p><strong>Unidade de Saúde:</strong> {{ consulta_selecionada.unidade_saude }}</p>
+    <p><strong>Profissional:</strong> {{ consulta_selecionada.nome_profissional }}</p>
+    <p><strong>Especialidade:</strong> {{ consulta_selecionada.especialidade }}</p>
+    <p><strong>Observações:</strong> {{ consulta_selecionada.observacoes }}</p>
+    {% endif %}
+
+    <h2>Selecione uma Consulta Odontológica</h2>
+    <select id="odonto_select" onchange="filtrarConsultaOdonto()">
+        <option value="">Selecione uma data</option>
+        {% for odonto in consultas_odonto %}
+            <option value="{{ odonto.tratamento_data|date:'Y-m-d' }}" {% if consulta_odonto_selecionada and odonto.tratamento_data == consulta_odonto_selecionada.tratamento_data %}selected{% endif %}>
+                {{ odonto.tratamento_data|date:'d/m/Y' }}
+            </option>
+        {% endfor %}
+    </select>
+
+    {% if consulta_odonto_selecionada %}
+    <h3>Detalhes da Consulta Odontológica</h3>
+    <p><strong>Data:</strong> {{ consulta_odonto_selecionada.tratamento_data }}</p>
+    <p><strong>Procedimento Realizado:</strong> {{ consulta_odonto_selecionada.procedimento_realizado }}</p>
+    <p><strong>Especialidade:</strong> {{ consulta_odonto_selecionada.especialidade }}</p>
+    <p><strong>Plano de Cuidado:</strong> {{ consulta_odonto_selecionada.plano_cuidado }}</p>
+    {% endif %}
+
+</body>
+</html>

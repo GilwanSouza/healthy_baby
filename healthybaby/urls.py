@@ -6,6 +6,9 @@ from django.conf.urls.static import static
 
 from . import views
 
+from django.urls import path
+from .views import detalhes_gestante
+
 app_name = "healthybaby"
 
 urlpatterns = [
@@ -19,4 +22,7 @@ urlpatterns = [
     path('posParto/', views.posParto_cadastro, name='posParto'),
     path("salvar-dentes/", views.salvar_dentes, name="salvar_dentes"),
     path("consultas/", views.cadastrar_consulta, name="consultas"),
+
+        path('detalhes/<str:cpf>/', detalhes_gestante, name='detalhes_gestante'),
     ]
+

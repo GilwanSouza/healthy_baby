@@ -92,20 +92,13 @@
                             <td>
                                 <a href="{% url 'healthybaby:consultas' %}?id={{ gestante.id }}&nome={{ gestante.nome }}&cpf={{ gestante.cpf }}&telefone={{ gestante.telefone }}&nascimento={{ gestante.data_nascimento }}&parto={{ gestante.data_prevista_parto }}">
                                     <img src="{% static 'assets/img/consulta.jpg' %}" style="width: 30px; height: 30px;">
-                                </a>
-                                
+                                </a>                               
                             </td>
                             <td>
-                                <a href=""
-                                data-id="{{ gestante.id }}" 
-                                data-nome="{{ gestante.nome }}"
-                                data-cpf="{{ gestante.cpf }}"
-                                data-telefone="{{ gestante.telefone }}"
-                                data-nascimento="{{ gestante.data_nascimento }}"
-                                data-parto="{{ gestante.data_prevista_parto }}">
+                                <a href="{% url 'healthybaby:detalhes_gestante' gestante.cpf %}">
                                     <img src="{% static 'assets/img/info-icon.jpg' %}" style="width: 30px; height: 30px;">
                                 </a>
-                            </td>
+                            </td>                            
                         </tr>
                     {% endfor %}
                 </tbody>
