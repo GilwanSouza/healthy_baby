@@ -11999,6 +11999,19 @@ header.masthead5 {
   background-size: cover;
 }
 
+header.masthead6 {
+  padding-top: 10.5rem;
+  padding-bottom: 6rem;
+  text-align: center;
+  color: #fff;
+  background-image: url(" static {% '../assets/img/header6.jpg' %}");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+}
+
+
 header.masthead-nav {
   padding-top: 10.5rem;
   padding-bottom: 6rem;
@@ -12063,6 +12076,14 @@ header.masthead5 .masthead-subheading5 {
 }
 
 header.masthead5 .masthead-heading5 {
+  font-size: 3.25rem;
+  font-weight: 700;
+  line-height: 3.25rem;
+  margin-bottom: 2rem;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+header.masthead6 .masthead-heading6 {
   font-size: 3.25rem;
   font-weight: 700;
   line-height: 3.25rem;
