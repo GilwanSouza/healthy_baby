@@ -23,6 +23,6 @@ urlpatterns = [
     path("salvar-dentes/", views.salvar_dentes, name="salvar_dentes"),
     path("consultas/", views.cadastrar_consulta, name="consultas"),
 
-        path('detalhes/<str:cpf>/', detalhes_gestante, name='detalhes_gestante'),
+    path('detalhes/<str:cpf>/', detalhes_gestante, name='detalhes_gestante'),
     ]
 

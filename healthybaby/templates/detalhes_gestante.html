@@ -78,52 +78,313 @@
                 <div class="masthead-subheading4">Aqui você pode ver todas as informações da gestante!</div>
             </div>
         </header>
-        <br>
+        <br>       
+
+        <div class="container mt-5">
+            <form method="post" class="row g-3">
+                {% csrf_token %}
+        
+                <h2 class="text-center">Dados da Gestante</h2>
+                <input type="hidden" id="gestante_id" name="gestante_id" value="{{ gestante.id }}">
+        
+                <div class="col-md-6">
+                    <label>Nome:</label>
+                    <input type="text" id="nome" name="nome" class="form-control" value="{{ gestante.nome }}" readonly>
+                </div>
+        
+                <div class="col-md-4">
+                    <label>Nome Social:</label>
+                    <input type="text" id="nome_social" name="nome_social" class="form-control" value="{{ gestante.nome_social }}" readonly>
+                </div>
+        
+                <div class="col-md-2">
+                    <label>Data de Nascimento:</label>
+                    <input type="text" id="data_nascimento" name="data_nascimento" class="form-control" 
+                           value="{{ gestante.data_nascimento|date:'d/m/Y' }}" readonly>
+                </div>
+        
+                <div class="col-md-4">
+                    <label>CPF:</label>
+                    <input type="text" id="cpf" name="cpf" class="form-control" value="{{ gestante.cpf }}" readonly>
+                </div>
+
+                <div class="col-md-4">
+                    <label>Cidade:</label>
+                    <input type="text" id="cidade" name="cidade" class="form-control" value="{{ gestante.cidade }}" readonly>
+                </div>
+        
+                <div class="col-md-4">
+                    <label>Telefone:</label>
+                    <input type="text" id="telefone" name="telefone" class="form-control" value="{{ gestante.telefone }}" readonly>
+                </div>
+        
+                <div class="col-md-6">
+                    <label>Endereço:</label>
+                    <input type="text" id="endereco" name="endereco" class="form-control" value="{{ gestante.endereco }}" readonly>
+                </div>
+
+                <div class="col-md-2">
+                    <label>Ponto de Referência:</label>
+                    <input type="text" id="ponto_referencia" name="ponto_referencia" class="form-control" value="{{ gestante.ponto_referencia }}" readonly>
+                </div>
+        
+                <div class="col-md-1">
+                    <label>Estado:</label>
+                    <input type="text" id="estado" name="estado" class="form-control" value="{{ gestante.estado }}" readonly>
+                </div>
+
+                <div class="col-md-3">
+                    <label>Número SUS:</label>
+                    <input type="text" id="num_sus" name="num_sus" class="form-control" value="{{ gestante.num_sus }}" readonly>
+                </div>
+        
+                <div class="col-md-4">
+                    <label>CEP:</label>
+                    <input type="text" id="cep" name="cep" class="form-control" value="{{ gestante.cep }}" readonly>
+                </div>
+        
+                <div class="col-md-3">
+                    <label>Data Prevista para o Parto:</label>
+                    <input type="text" id="data_parto_{{ gestante.id }}" name="parto" 
+                           class="form-control" value="{{ gestante.data_prevista_parto|date:'d/m/Y' }}" readonly>
+                </div>
+        
+                <div class="col-md-5">
+                    <label>Número NIS:</label>
+                    <input type="text" id="num_nis" name="num_nis" class="form-control" value="{{ gestante.num_nis }}" readonly>
+                </div>
+        
+                <div class="col-md-6">
+                    <label>Nome do Companheiro:</label>
+                    <input type="text" id="nome_companheiro" name="nome_companheiro" class="form-control" value="{{ gestante.nome_companheiro }}" readonly>
+                </div>
+        
+                <div class="col-md-6">
+                    <label>Email:</label>
+                    <input type="email" id="email" name="email" class="form-control" value="{{ gestante.email }}" readonly>
+                </div>
+        
+                <div class="col-md-6">
+                    <label>Ocupação:</label>
+                    <input type="text" id="ocupacao" name="ocupacao" class="form-control" value="{{ gestante.ocupacao }}" readonly>
+                </div>
+        
+                <div class="col-md-3">
+                    <label>Etnia:</label>
+                    <input type="text" id="etnia" name="etnia" class="form-control" value="{{ gestante.etnia }}" readonly>
+                </div>
+        
+                <div class="col-md-3">
+                    <label>Raça:</label>
+                    <input type="text" id="raca" name="raca" class="form-control" value="{{ gestante.raca }}" readonly>
+                </div>
+        
+                <h3 class="text-center mt-4">Contato de Emergência</h3>
+        
+                <div class="col-md-6">
+                    <label>Nome:</label>
+                    <input type="text" id="emg_ctt_nome" name="emg_ctt_nome" class="form-control" value="{{ gestante.emg_ctt_nome }}" readonly>
+                </div>
+        
+                <div class="col-md-3">
+                    <label>Telefone:</label>
+                    <input type="text" id="emg_ctt_telefone" name="emg_ctt_telefone" class="form-control" value="{{ gestante.emg_ctt_telefone }}" readonly>
+                </div>
+        
+                <div class="col-md-3">
+                    <label>Parentesco:</label>
+                    <input type="text" id="emg_ctt_parentesco" name="emg_ctt_parentesco" class="form-control" value="{{ gestante.get_emg_ctt_parentesco_display }}" readonly>
+                </div>
+        
+                <br>
+                <div class="row mx-auto mt-5">
+                    <img src="{% static "assets\img\imagem-parceiro.jpg"%}" class="col-md-3" style="width: 40%; height: 100%;">
+                    <div class="container col-md-6 mt-6 mx-1">
+                        <h1 class="masthead-heading">Parceiro de pré-natal</h1>
+                        <div class="masthead-subheading">Aqui você pode cadastrar todas as informações do(a) parceiro(a) </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mt-5">
+                    <label>Nome</label>
+                    <input type="text" id="parceiro_nome" name="parceiro_nome" class="form-control" 
+                    value="{{ gestante.parceiro_nome }}" readonly>
+                </div>
+
+                <div class="col-md-4 mt-5">
+                    <label>Nome social</label>
+                    <input type="text" id="parceiro_nome_social" name="parceiro_nome_social" class="form-control" 
+                    value="{{ gestante.parceiro_nome_social }}" readonly>
+                </div>
+
+                <div class="col-md-4 mt-5">
+                    <label>Instrução</label>
+                    <input type="text" id="parceiro_instrucao" name="parceiro_instrucao" class="form-control" 
+                    value="{{ gestante.parceiro_instrucao }}" readonly>
+                </div>
 
 
-    <h1>Informações da Gestante</h1>
-    <p><strong>Nome:</strong> {{ gestante.nome }}</p>
-    <p><strong>CPF:</strong> {{ gestante.cpf }}</p>
-    <p><strong>Data Prevista para Parto:</strong> {{ gestante.data_prevista_parto }}</p>
 
-    <h2>Selecione uma Consulta Médica</h2>
-    <select id="consulta_select" onchange="filtrarConsulta()">
-        <option value="">Selecione uma data</option>
-        {% for consulta in consultas %}
-            <option value="{{ consulta.data_consulta|date:'Y-m-d' }}" {% if consulta_selecionada and consulta.data_consulta == consulta_selecionada.data_consulta %}selected{% endif %}>
-                {{ consulta.data_consulta|date:'d/m/Y' }}
-            </option>
-        {% endfor %}
-    </select>
+                <div class="col-md-3">
+                    <label>Idade</label>
+                    <input type="text" id="parceiro_idade" name="parceiro_idade" class="form-control" 
+                    value="{{ gestante.parceiro_idade }}" readonly>
+                </div>
 
-    {% if consulta_selecionada %}
-    <h3>Detalhes da Consulta</h3>
-    <p><strong>Data:</strong> {{ consulta_selecionada.data_consulta }}</p>
-    <p><strong>Unidade de Saúde:</strong> {{ consulta_selecionada.unidade_saude }}</p>
-    <p><strong>Profissional:</strong> {{ consulta_selecionada.nome_profissional }}</p>
-    <p><strong>Especialidade:</strong> {{ consulta_selecionada.especialidade }}</p>
-    <p><strong>Observações:</strong> {{ consulta_selecionada.observacoes }}</p>
-    {% endif %}
+                <div class="col-md-3">
+                    <label>Peso</label>
+                    <input type="text" id="parceiro_peso" name="parceiro_peso" class="form-control" 
+                    value="{{ gestante.parceiro_peso }}" readonly>
+                </div>
 
-    <h2>Selecione uma Consulta Odontológica</h2>
-    <select id="odonto_select" onchange="filtrarConsultaOdonto()">
-        <option value="">Selecione uma data</option>
-        {% for odonto in consultas_odonto %}
-            <option value="{{ odonto.tratamento_data|date:'Y-m-d' }}" {% if consulta_odonto_selecionada and odonto.tratamento_data == consulta_odonto_selecionada.tratamento_data %}selected{% endif %}>
-                {{ odonto.tratamento_data|date:'d/m/Y' }}
-            </option>
-        {% endfor %}
-    </select>
+                <div class="col-md-3">
+                    <label>Altura</label>
+                    <input type="text" id="form.parceiro_altura" name="form.parceiro_altura" class="form-control" 
+                    value="{{ gestante.parceiro_altura }}" readonly>
+                </div>
 
-    {% if consulta_odonto_selecionada %}
-    <h3>Detalhes da Consulta Odontológica</h3>
-    <p><strong>Data:</strong> {{ consulta_odonto_selecionada.tratamento_data }}</p>
-    <p><strong>Procedimento Realizado:</strong> {{ consulta_odonto_selecionada.procedimento_realizado }}</p>
-    <p><strong>Especialidade:</strong> {{ consulta_odonto_selecionada.especialidade }}</p>
-    <p><strong>Plano de Cuidado:</strong> {{ consulta_odonto_selecionada.plano_cuidado }}</p>
-    {% endif %}
+                <div class="col-md-3">
+                    <label>IMC</label>
+                    <input type="text" id="parceiro_imc" name="parceiro_imc" class="form-control" 
+                    value="{{ gestante.parceiro_imc }}" readonly>
+                </div>
 
-    <br><a href="{% url 'healthybaby:listagem' %}" class="btn btn-primary mt-3">Voltar</a>
+                <div class="col-md-4">
+                    <label>Pressão arterial</label>
+                    <input type="text" id="parceiro_perssaoarterial" name="parceiro_perssaoarterial" class="form-control" 
+                    value="{{ gestante.parceiro_perssaoarterial }}" readonly>
+                </div>
+
+                <div class="col-md-4">
+                    <label>Antecedentes familiares</label>
+                    <input type="text" id="parceiro_antecedentes" name="parceiro_antecedentes" class="form-control" 
+                    value="{{ gestante.parceiro_antecedentes }}" readonly>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="{{ form.parceiro_info.id_for_label }}">Informações adicionais</label>
+                    <input type="text" id="parceiro_info" name="parceiro_info" class="form-control" 
+                    value="{{ gestante.parceiro_info }}" readonly>
+                </div>
+                
+                <h3 class="text-center mt-4">Exames Laboratoriais do parceiro</h3>       
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Exame</th>
+                            <th>Data</th>
+                            <th>Resultado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ABO-Rh</td>
+                            <td>
+                                {{ gestante.pcr_exame_abo_data }}
+                            </td>
+                            <td>
+                                {{ gestante.pcr_exame_abo_resultado }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Glicemia em jejum</td>
+                            <td>
+                                {{ gestante.pcr_exame_glicemia_data }}
+                            </td>
+                            <td>
+                                {{ gestante.pcr_exame_glicemia_resultado }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Hemograma</td>
+                            <td>
+                                {{ gestante.pcr_exame_hemograma_data }}
+                            </td>
+                            <td>
+                                {{ gestante.pcr_exame_hemograma_resultado }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>HIV/Anti-HIV (teste rápido)</td>
+                            <td>
+                                {{ gestante.pcr_exame_hiv_data }}
+                            </td>
+                            <td>
+                                {{ gestante.pcr_exame_hiv_resultado }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Sifilis (teste rápido)</td>
+                            <td>
+                                {{ gestante.pcr_exame_sifilis_data }}
+                            </td>
+                            <td>
+                                {{ gestante.pcr_exame_sifilis_resultado }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>VDRL</td>
+                            <td>
+                                {{ gestante.pcr_exame_vdrl_data }}
+                            </td>
+                            <td>
+                                {{ gestante.pcr_exame_vdrl_resultado }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Hepatite C</td>
+                            <td>
+                                {{ gestante.pcr_exame_hepatite_data }}
+                            </td>
+                            <td>
+                                {{ gestante.pcr_exame_hepatite_resultado }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>        
+        
+        <h2>Selecione uma Consulta Médica</h2>
+        <select id="consulta_select" onchange="filtrarConsulta()">
+            <option value="">Selecione uma data</option>
+            {% for consulta in consultas %}
+                <option value="{{ consulta.data_consulta|date:'Y-m-d' }}" {% if consulta_selecionada and consulta.data_consulta == consulta_selecionada.data_consulta %}selected{% endif %}>
+                    {{ consulta.data_consulta|date:'d/m/Y' }}
+                </option>
+            {% endfor %}
+        </select>
+
+        {% if consulta_selecionada %}
+        <h3>Detalhes da Consulta</h3>
+        <p><strong>Data:</strong> {{ consulta_selecionada.data_consulta }}</p>
+        <p><strong>Unidade de Saúde:</strong> {{ consulta_selecionada.unidade_saude }}</p>
+        <p><strong>Profissional:</strong> {{ consulta_selecionada.nome_profissional }}</p>
+        <p><strong>Especialidade:</strong> {{ consulta_selecionada.especialidade }}</p>
+        <p><strong>Observações:</strong> {{ consulta_selecionada.observacoes }}</p>
+        {% endif %}
+
+        <h2>Selecione uma Consulta Odontológica</h2>
+        <select id="odonto_select" onchange="filtrarConsultaOdonto()">
+            <option value="">Selecione uma data</option>
+            {% for odonto in consultas_odonto %}
+                <option value="{{ odonto.tratamento_data|date:'Y-m-d' }}" {% if consulta_odonto_selecionada and odonto.tratamento_data == consulta_odonto_selecionada.tratamento_data %}selected{% endif %}>
+                    {{ odonto.tratamento_data|date:'d/m/Y' }}
+                </option>
+            {% endfor %}
+        </select>
+
+        {% if consulta_odonto_selecionada %}
+        <h3>Detalhes da Consulta Odontológica</h3>
+        <p><strong>Data:</strong> {{ consulta_odonto_selecionada.tratamento_data }}</p>
+        <p><strong>Procedimento Realizado:</strong> {{ consulta_odonto_selecionada.procedimento_realizado }}</p>
+        <p><strong>Especialidade:</strong> {{ consulta_odonto_selecionada.especialidade }}</p>
+        <p><strong>Plano de Cuidado:</strong> {{ consulta_odonto_selecionada.plano_cuidado }}</p>
+        {% endif %}
+
+        <br><a href="{% url 'healthybaby:listagem' %}" class="btn btn-primary mt-3">Voltar</a>
+        
         <footer class="footer py-4">
             <div class="container">
                 <div class="row align-items-center">
