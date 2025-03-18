@@ -250,4 +250,21 @@ window.addEventListener('DOMContentLoaded', event => {
         document.getElementById("crm").value = urlParams.get("crm");
     });
     
+    function filtrarConsulta() {
+        var consultaSelect = document.getElementById('consulta_select');
+        if (consultaSelect.value) {
+            var modal = new bootstrap.Modal(document.getElementById('portfolioModalConsulta'));
+            modal.show();
+        }
+    }
+    
+    function filtrarConsultaOdonto() {
+        var odontoSelect = document.getElementById('odonto_select');
+        if (odontoSelect.value) {
+            var modal = new bootstrap.Modal(document.getElementById('portfolioModalOdonto'));
+            modal.show();
+        }
+    }
+    
+    
 });

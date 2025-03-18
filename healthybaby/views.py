@@ -188,3 +188,24 @@ def detalhes_gestante(request, cpf):
         'consultas': consultas,
         'consultas_odonto': consultas_odonto,
     })
+
+from django.http import JsonResponse
+from .models import Consulta
+
+def consulta_detalhada(request):
+    data_consulta = request.POST.get('data_consulta')
+    consulta = Consulta.objects.filter(data_consulta=data_consulta).first()
+    
+    if consulta:
+        response_data = {
+            'consulta': {
+                'data_consulta': consulta.data_consulta,
+                'unidade_saude': consulta.unidade_saude,
+                'nome_profissional': consulta.nome_profissional,
+                'especialidade': consulta.especialidade,
+                'observacoes': consulta.observacoes,
+            }
+        }
+        return JsonResponse(response_data)
+    else:
+        return JsonResponse({'error': 'Consulta não encontrada'}, status=404)

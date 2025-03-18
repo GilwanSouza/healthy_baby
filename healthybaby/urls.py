@@ -24,5 +24,7 @@ urlpatterns = [
     path("consultas/", views.cadastrar_consulta, name="consultas"),
 
     path('detalhes/<str:cpf>/', detalhes_gestante, name='detalhes_gestante'),
+    
+    path('detalhes_gestante/',views.consulta_detalhada, name='detalhes_consulta'),
     ]
 

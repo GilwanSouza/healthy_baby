@@ -24,6 +24,13 @@
             }
         </script>
 
+        <!-- CSS do Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- JS do Bootstrap e dependências -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
         <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
@@ -344,48 +351,50 @@
                     </tbody>
                 </table>
 
-                <h2>Selecione uma Consulta Médica</h2>
-                <select id="consulta_select" onchange="filtrarConsulta()">
-                    <option value="">Selecione uma data</option>
-                    {% for consulta in consultas %}
-                        <option value="{{ consulta.data_consulta|date:'Y-m-d' }}" {% if consulta_selecionada and consulta.data_consulta == consulta_selecionada.data_consulta %}selected{% endif %}>
-                            {{ consulta.data_consulta|date:'d/m/Y' }}
-                        </option>
-                    {% endfor %}
-                </select>
-        
-                {% if consulta_selecionada %}
-                <h3>Detalhes da Consulta</h3>
-                <p><strong>Data:</strong> {{ consulta_selecionada.data_consulta }}</p>
-                <p><strong>Unidade de Saúde:</strong> {{ consulta_selecionada.unidade_saude }}</p>
-                <p><strong>Profissional:</strong> {{ consulta_selecionada.nome_profissional }}</p>
-                <p><strong>Especialidade:</strong> {{ consulta_selecionada.especialidade }}</p>
-                <p><strong>Observações:</strong> {{ consulta_selecionada.observacoes }}</p>
-                {% endif %}
-        
-                <h2>Selecione uma Consulta Odontológica</h2>
-                <select id="odonto_select" onchange="filtrarConsultaOdonto()">
-                    <option value="">Selecione uma data</option>
-                    {% for odonto in consultas_odonto %}
-                        <option value="{{ odonto.tratamento_data|date:'Y-m-d' }}" {% if consulta_odonto_selecionada and odonto.tratamento_data == consulta_odonto_selecionada.tratamento_data %}selected{% endif %}>
-                            {{ odonto.tratamento_data|date:'d/m/Y' }}
-                        </option>
-                    {% endfor %}
-                </select>
-        
-                {% if consulta_odonto_selecionada %}
-                <h3>Detalhes da Consulta Odontológica</h3>
-                <p><strong>Data:</strong> {{ consulta_odonto_selecionada.tratamento_data }}</p>
-                <p><strong>Procedimento Realizado:</strong> {{ consulta_odonto_selecionada.procedimento_realizado }}</p>
-                <p><strong>Especialidade:</strong> {{ consulta_odonto_selecionada.especialidade }}</p>
-                <p><strong>Plano de Cuidado:</strong> {{ consulta_odonto_selecionada.plano_cuidado }}</p>
-                {% endif %}
-        
-                <div class="d-flex justify-content-center mt-5">
-                    <a href="{% url 'healthybaby:listagem' %}" class="btn btn-primary mt-3">Voltar</a>
-                </div>
             </form>
-        </div>        
+        </div>
+
+        <h2>Selecione uma Consulta Médica</h2>
+        <select id="consulta_select" onchange="filtrarConsulta()">
+            <option value="">Selecione uma data</option>
+            {% for consulta in consultas %}
+                <option value="{{ consulta.data_consulta|date:'Y-m-d' }}" {% if consulta_selecionada and consulta.data_consulta == consulta_selecionada.data_consulta %}selected{% endif %}>
+                    {{ consulta.data_consulta|date:'d/m/Y' }}
+                </option>
+            {% endfor %}
+        </select>
+        
+        {% if consulta_selecionada %}
+        <h5 class="modal-title" id="consultaModalLabel">Detalhes da Consulta</h5>
+        <p><strong>Data:</strong> {{ consulta_selecionada.data_consulta }}</p>
+        <p><strong>Unidade de Saúde:</strong> {{ consulta_selecionada.unidade_saude }}</p>
+        <p><strong>Profissional:</strong> {{ consulta_selecionada.nome_profissional }}</p>
+        <p><strong>Especialidade:</strong> {{ consulta_selecionada.especialidade }}</p>
+        <p><strong>Observações:</strong> {{ consulta_selecionada.observacoes }}</p>          
+        {% endif %}
+        
+        <h2>Selecione uma Consulta Odontológica</h2>
+        <select id="odonto_select" onchange="filtrarConsultaOdonto()">
+            <option value="">Selecione uma data</option>
+            {% for odonto in consultas_odonto %}
+                <option value="{{ odonto.tratamento_data|date:'Y-m-d' }}" {% if consulta_odonto_selecionada and odonto.tratamento_data == consulta_odonto_selecionada.tratamento_data %}selected{% endif %}>
+                    {{ odonto.tratamento_data|date:'d/m/Y' }}
+                </option>
+            {% endfor %}
+        </select>
+        
+        {% if consulta_odonto_selecionada %}
+        <h5 class="modal-title" id="odontoModalLabel">Detalhes da Consulta Odontológica</h5>
+        <p><strong>Data:</strong> {{ consulta_odonto_selecionada.tratamento_data }}</p>
+        <p><strong>Unidade de Saúde:</strong> {{ consulta_odonto_selecionada.unidade_saude }}</p>
+        <p><strong>Profissional:</strong> {{ consulta_odonto_selecionada.nome_profissional }}</p>
+        <p><strong>Especialidade:</strong> {{ consulta_odonto_selecionada.especialidade }}</p>
+        <p><strong>Observações:</strong> {{ consulta_odonto_selecionada.observacoes }}</p>          
+        {% endif %}               
+
+        <div class="d-flex justify-content-center mt-5">
+            <a href="{% url 'healthybaby:listagem' %}" class="btn btn-primary mt-3">Voltar</a>
+        </div>
         
         <footer class="footer py-4">
             <div class="container">
@@ -404,11 +413,30 @@
                 </div>
             </div>
         </footer>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
         <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>     
 
+        <script>
+            function filtrarConsulta() {
+                var consultaSelect = document.getElementById('consulta_select');
+                if (consultaSelect.value) {
+                    var modal = new bootstrap.Modal(document.getElementById('portfolioModalConsulta'));
+                    modal.show();
+                }
+            }
+            
+            function filtrarConsultaOdonto() {
+                var odontoSelect = document.getElementById('odonto_select');
+                if (odontoSelect.value) {
+                    var modal = new bootstrap.Modal(document.getElementById('portfolioModalOdonto'));
+                    modal.show();
+                }
+            }
+                      
+        </script>
     </body>
 </html>
