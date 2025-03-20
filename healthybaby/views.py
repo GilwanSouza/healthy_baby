@@ -174,38 +174,36 @@ def posParto_cadastro(request):
 from django.shortcuts import render, get_object_or_404
 from .models import Gestante, PosParto, Odonto, Consulta
 from datetime import datetime
-
-from django.shortcuts import render, get_object_or_404
-from .models import Gestante, Consulta, Odonto
-
+ 
 def detalhes_gestante(request, cpf):
     gestante = get_object_or_404(Gestante, cpf=cpf)
     consultas = Consulta.objects.filter(gestante=gestante)
     consultas_odonto = Odonto.objects.filter(cpf_gestante=cpf)
-
+ 
+    data_consulta_selecionada = request.GET.get('data_consulta')
+    data_odonto_selecionada = request.GET.get('data_odonto')
+ 
+    consulta_selecionada = None
+    consulta_odonto_selecionada = None
+ 
+    if data_consulta_selecionada:
+        try:
+            data_formatada = datetime.strptime(data_consulta_selecionada, "%Y-%m-%d").date()
+            consulta_selecionada = consultas.filter(data_consulta=data_formatada).first()
+        except ValueError:
+            pass
+ 
+    if data_odonto_selecionada:
+        try:
+            data_formatada = datetime.strptime(data_odonto_selecionada, "%Y-%m-%d").date()
+            consulta_odonto_selecionada = consultas_odonto.filter(tratamento_data=data_formatada).first()
+        except ValueError:
+            pass
+ 
     return render(request, 'detalhes_gestante.html', {
         'gestante': gestante,
         'consultas': consultas,
         'consultas_odonto': consultas_odonto,
+        'consulta_selecionada': consulta_selecionada,
+        'consulta_odonto_selecionada': consulta_odonto_selecionada,
     })
-
-from django.http import JsonResponse
-from .models import Consulta
-
-def consulta_detalhada(request):
-    data_consulta = request.POST.get('data_consulta')
-    consulta = Consulta.objects.filter(data_consulta=data_consulta).first()
-    
-    if consulta:
-        response_data = {
-            'consulta': {
-                'data_consulta': consulta.data_consulta,
-                'unidade_saude': consulta.unidade_saude,
-                'nome_profissional': consulta.nome_profissional,
-                'especialidade': consulta.especialidade,
-                'observacoes': consulta.observacoes,
-            }
-        }
-        return JsonResponse(response_data)
-    else:
-        return JsonResponse({'error': 'Consulta não encontrada'}, status=404)
