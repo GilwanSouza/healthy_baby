@@ -172,70 +172,72 @@
                         {% endif %}
                     </div> 
 
-                    <div class="card bg-warning mx-auto border border-3 border-primary shadow">
+                    <div class="card bg-warning mx-auto border border-3 border-primary shadow" style="width: 100%;">
                         <div class="icon">
                             <img src="{% static 'assets\img\card.jpg' %}" alt="Bebê ilustrativo">
                         </div>
                         <h1>VEJA QUEM CHEGOU!</h1>
                         <div class="form">
-                            <div class="col-md-auto">
-                                <label for="{{ form.nome_bebe.id_for_label }}">Nome do bebê</label>
-                                {{ form.nome_bebe }}
-                                {% if form.nome_bebe.errors %}
-                                    <div class="invalid-feedback">
-                                        {% for error in form.nome_bebe.errors %}
-                                            <p>{{ error }}</p>
-                                        {% endfor %}
-                                    </div>
-                                {% endif %}
-                            </div>
+                            <div class="row g-3">
+                                <div class="col-md-10">
+                                    <label for="{{ form.nome_bebe.id_for_label }}">Nome do bebê</label>
+                                    {{ form.nome_bebe }}
+                                    {% if form.nome_bebe.errors %}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.nome_bebe.errors %}
+                                                <p>{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
 
-                            <div class="col-md-auto">
-                                <label for="{{ form.data_nascimento_bebe.id_for_label }}">Data do nascimento</label>
-                                {{ form.data_nascimento_bebe }}
-                                {% if form.data_nascimento_bebe.errors %}
-                                    <div class="invalid-feedback">
-                                        {% for error in form.data_nascimento_bebe.errors %}
-                                            <p>{{ error }}</p>
-                                        {% endfor %}
-                                    </div>
-                                {% endif %}
-                            </div>
+                                <div class="col-md-2">
+                                    <label for="{{ form.data_nascimento_bebe.id_for_label }}">Data do nascimento</label>
+                                    {{ form.data_nascimento_bebe }}
+                                    {% if form.data_nascimento_bebe.errors %}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.data_nascimento_bebe.errors %}
+                                                <p>{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
 
-                            <div class="col-md-auto">
-                                <label for="{{ form.hora_nascimento_bebe.id_for_label }}">Hora do nascimento</label>
-                                {{ form.hora_nascimento_bebe }}
-                                {% if form.hora_nascimento_bebe.errors %}
-                                    <div class="invalid-feedback">
-                                        {% for error in form.hora_nascimento_bebe.errors %}
-                                            <p>{{ error }}</p>
-                                        {% endfor %}
-                                    </div>
-                                {% endif %}
-                            </div>
+                                <div class="col-md-2">
+                                    <label for="{{ form.hora_nascimento_bebe.id_for_label }}">Hora do nascimento</label>
+                                    {{ form.hora_nascimento_bebe }}
+                                    {% if form.hora_nascimento_bebe.errors %}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.hora_nascimento_bebe.errors %}
+                                                <p>{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
 
-                            <div class="col-md-auto">
-                                <label for="{{ form.local_nascimento.id_for_label }}">Nasceu em (cidade/estado)</label>
-                                {{ form.local_nascimento }}
-                                {% if form.local_nascimento.errors %}
-                                    <div class="invalid-feedback">
-                                        {% for error in form.local_nascimento.errors %}
-                                            <p>{{ error }}</p>
-                                        {% endfor %}
-                                    </div>
-                                {% endif %}
-                            </div>
+                                <div class="col-md-4">
+                                    <label for="{{ form.local_nascimento.id_for_label }}">Nasceu em (cidade/estado)</label>
+                                    {{ form.local_nascimento }}
+                                    {% if form.local_nascimento.errors %}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.local_nascimento.errors %}
+                                                <p>{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
 
-                            <div class="col-md-auto">
-                                <label for="{{ form.profissionais.id_for_label }}">Profissionais de saúde que cuidaram</label>
-                                {{ form.profissionais }}
-                                {% if form.profissionais.errors %}
-                                    <div class="invalid-feedback">
-                                        {% for error in form.profissionais.errors %}
-                                            <p>{{ error }}</p>
-                                        {% endfor %}
-                                    </div>
-                                {% endif %}
+                                <div class="col-md-6">
+                                    <label for="{{ form.profissionais.id_for_label }}">Profissionais de saúde que cuidaram</label>
+                                    {{ form.profissionais }}
+                                    {% if form.profissionais.errors %}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.profissionais.errors %}
+                                                <p>{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
