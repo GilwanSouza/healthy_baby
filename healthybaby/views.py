@@ -3,16 +3,13 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .forms import CustomUserForm, GestanteForm, PosPartoForm, OdontoForm, ConsultaForm
 from .models import Gestante, Odonto
-
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from .models import Odonto
-
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
 from .models import Gestante, Odonto, Consulta
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
 
 def parse_date(date_str):
     from datetime import datetime
@@ -111,6 +108,7 @@ def user_logout(request):
 def index(request):
     return render(request, 'index.html')
 
+@login_required
 def cadastrar_consulta(request):
     if request.method == "POST":
         form = ConsultaForm(request.POST)
@@ -128,6 +126,7 @@ def cadastrar_consulta(request):
 
     return render(request, "consultas.html", {"form": form})
 
+@login_required
 def consultaOdontoCadastro(request):
     if request.method == 'POST':
         form = OdontoForm(request.POST)
@@ -143,10 +142,12 @@ def consultaOdontoCadastro(request):
 
     return render(request, 'consultaOdonto.html', {'form': form})
 
+@login_required
 def listar_gestantes(request):
     gestante = Gestante.objects.all()
     return render(request, 'listagem.html', {'gestantes': gestante})
 
+@login_required
 def cadastrar_gestante(request):
     if request.method == 'POST':
         form = GestanteForm(request.POST)
@@ -162,6 +163,7 @@ def cadastrar_gestante(request):
 
     return render(request, 'cadastroGestante.html', {'form': form})
 
+@login_required
 def posParto_cadastro(request):
     if request.method == 'POST':
         form = PosPartoForm(request.POST)
@@ -176,6 +178,7 @@ def posParto_cadastro(request):
 
     return render(request, 'posParto.html', {'form': form})
 
+@login_required
 def detalhes_gestante(request, cpf):
     gestante = get_object_or_404(Gestante, cpf=cpf)
     consultas = Consulta.objects.filter(gestante=gestante)
