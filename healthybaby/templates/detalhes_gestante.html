@@ -14,13 +14,131 @@
             function filtrarConsulta() {
                 let cpf = "{{ gestante.cpf }}";
                 let data = document.getElementById("consulta_select").value;
-                window.location.href = `/detalhes/${cpf}/?data_consulta=${data}`;
+        
+                fetch(`/detalhes/${cpf}/?data_consulta=${data}`, {
+                    method: "GET",
+                    headers: { "X-Requested-With": "XMLHttpRequest" }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.consulta_selecionada) {
+                        document.getElementById("consultaDetalhes").innerHTML = `
+                            <div class="card bg-white mx-auto col-lg-10" style="width: 100%;">
+                                <div class="card-header bg-white">
+                                    <h5 class="card-title bg-white">Detalhes da Consulta Médica</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="container mt-5">
+                                        <div class="row">                                            
+                                            <div class="col-md-4" readonly><label>Idade Gestacional:</label> 
+                                            <inputtype="text" class="form-control" readonly>${data.consulta_selecionada.idade_gestacional}</div>
+                                            <div class="col-md-4" readonly><label>Unidade de saúde:</label> 
+                                            <inputtype="text" class="form-control" readonly>${data.consulta_selecionada.unidade_saude}</div>
+                                            <div class="col-md-4" readonly><label>CRM:</label> 
+                                            <inputtype="text" class="form-control" readonly>${data.consulta_selecionada.crm}</div>
+                                            <div class="col-md-6" readonly><label>Especialidade:</label> 
+                                            <inputtype="text" class="form-control" readonly>${data.consulta_selecionada.especialidade}</div>
+                                            <div class="col-md-6" readonly><label>Nome do profissional:</label> 
+                                            <inputtype="text" class="form-control" readonly>${data.consulta_selecionada.nome_profissional}</div>
+                                            <div class="col-md-12" readonly><label>Observações:</label> 
+                                            <inputtype="text" class="form-control" readonly>${data.consulta_selecionada.observacoes}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => console.error("Erro ao buscar consulta médica:", error));
             }
-    
+
             function filtrarConsultaOdonto() {
                 let cpf = "{{ gestante.cpf }}";
                 let data = document.getElementById("odonto_select").value;
-                window.location.href = `/detalhes/${cpf}/?data_odonto=${data}`;
+        
+                fetch(`/detalhes/${cpf}/?data_odonto=${data}`, {
+                    method: "GET",
+                    headers: { "X-Requested-With": "XMLHttpRequest" }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.consulta_odonto_selecionada) {
+                        document.getElementById("consultaOdontoDetalhes").innerHTML = `
+                            <div class="card bg-white mx-auto col-lg-10" style="width: 100%;">
+                                <div class="card-header bg-white">
+                                    <h5 class="card-title">Detalhes da Consulta Odontológica</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="container mt-5">
+                                        <div class="row">
+                                            <div class="col-md-4" readonly><label>Dente:</label> 
+                                            <inputtype="text" class="form-control" readonly>${data.consulta_odonto_selecionada.tratamento_dente}</div>
+                                            <div class="col-md-4" readonly><label>Procedimento Realizado:</label>
+                                            <inputtype="text" class="form-control" readonly>${data.consulta_odonto_selecionada.procedimento_realizado}</div>
+                                            <div class="col-md-4" readonly><label>Especialidade:</label>
+                                            <inputtype="text" class="form-control" readonly>${data.consulta_odonto_selecionada.especialidade}</div>
+                                            <div class="col-md-3" readonly><label>Tratamento Necessário:</label>
+                                            <inputtype="text" class="form-control" readonly>${data.consulta_odonto_selecionada.tratamento_necessario}</div>
+                                            <div class="col-md-3" readonly><label>Encaminhamento:</label>
+                                            <inputtype="text" class="form-control" readonly>${data.consulta_odonto_selecionada.encaminhamento}</div>
+                                            <div class="col-md-3" readonly><label>Retorno:</label>
+                                            <inputtype="text" class="form-control" readonly>${data.consulta_odonto_selecionada.retorno}</div>
+                                            <div class="col-md-3" readonly><label>Plano de Cuidado:</label>
+                                            <inputtype="text" class="form-control" readonly>${data.consulta_odonto_selecionada.plano_cuidado}</div>
+                                            <table class="table mt-3">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Dados</th>
+                                                        <th class="col-md-2">Possui</th>
+                                                        <th class="col-md-2">Data</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Presença de placa visível:</th>
+                                                        <th class="col-md-2">${data.consulta_odonto_selecionada.placa_viavel}</th>
+                                                        <th class="col-md-2">${data.consulta_odonto_selecionada.placa_viavel_data}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Presença de sangramento espontâneo:</th>
+                                                        <th class="col-md-2">${data.consulta_odonto_selecionada.placa_sangramento}</th>
+                                                        <th class="col-md-2">${data.consulta_odonto_selecionada.placa_sangramento_data}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Presença de sangramento à sondagem em 
+                                                            pelo menos 10% dos sitios* presentes:</th>
+                                                        <th class="col-md-2">${data.consulta_odonto_selecionada.placa_sangramento_sondagem}</th>
+                                                        <th class="col-md-2">${data.consulta_odonto_selecionada.placa_sangramento_sondagem_data}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Presença de cálculo dentário:</th>
+                                                        <th class="col-md-2">${data.consulta_odonto_selecionada.calculo_dentario}</th>
+                                                        <th class="col-md-2">${data.consulta_odonto_selecionada.calculo_dentario_data}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Presença de mobilidade:</th>
+                                                        <th class="col-md-2">${data.consulta_odonto_selecionada.mobilidade}</th>
+                                                        <th class="col-md-2">${data.consulta_odonto_selecionada.mobilidade_data}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Presença de perda de inserção com 
+                                                            dianóstico de periodontite:</th>
+                                                        <th class="col-md-2">${data.consulta_odonto_selecionada.perda_insercao}</th>
+                                                        <th class="col-md-2">${data.consulta_odonto_selecionada.perda_insercao_data}</th>
+                                                    </tr>
+                                                </tbody>
+                                            </table><br>
+
+                                            <div class="col-md-12 mt-3" readonly><label>Plano de tratamento (por consulta):</label> 
+                                            <inputtype="text" class="form-control" readonly>${data.consulta_odonto_selecionada.plano_tratamento}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => console.error("Erro ao buscar consulta odontológica:", error));
             }
         </script>
 
@@ -42,7 +160,7 @@
         <link href="assets/favicon.ico" rel="stylesheet">
 
     </head>
-<body>
+    <body class="home-page bg-gray">
     <nav class="navbar navbar-expand-lg bg-transparent navbar-dark fixed-top" id="mainNav"
         style="background-color: transparent !important;">
         <div class="container bg-transparent">
@@ -58,12 +176,6 @@
             <a class="navbar-brand masthead-subheading text-white" href="{% url 'healthybaby:index' %}">Healthy Baby</a>
             <div class="collapse navbar-collapse bg-transparent" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                    <div class="input-group mx-4">
-                        <input type="text" class="form-control bg-transparent" placeholder="Buscar" aria-label="Buscar">
-                        <button class="btn btn-light bg-transparent" type="button">
-                            <i class="bi bi-search text-white"></i>
-                        </button>
-                    </div>
                     <div class="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
@@ -85,10 +197,10 @@
             </div>
         </div>
     </nav>
-    <header class="masthead4" style="background-image: url('{% static " assets/img/header6.jpg" %}');">
+    <header class="masthead3" style="background-image: url('{% static "assets/img/header6.jpg" %}');">
         <div class="container mt-6">
-            <div class="masthead-heading4 text-uppercase">Informações de {{ gestante.nome }}</div>
-            <div class="masthead-subheading4">Aqui você pode ver todas as informações da gestante!</div>
+            <div class="masthead-heading3 text-uppercase">Informações de {{ gestante.nome }}</div>
+            <div class="masthead-subheading3">Aqui você pode ver todas as informações da gestante!</div>
         </div>
     </header>
     <br>
@@ -222,12 +334,10 @@
 
             <br>
             <div class="row mx-auto mt-5">
-                <img src="{% static " assets\img\imagem-parceiro.jpg"%}" class="col-md-3"
-                    style="width: 40%; height: 100%;">
+                <img src="{% static "assets\img\imagem-parceiro.jpg"%}" class="col-md-3" style="width: 40%; height: 100%;">
                 <div class="container col-md-6 mt-6 mx-1">
                     <h1 class="masthead-heading">Parceiro de pré-natal</h1>
-                    <div class="masthead-subheading">Aqui você pode cadastrar todas as informações do(a) parceiro(a)
-                    </div>
+                    <div class="masthead-subheading">Aqui você pode visualizar todas as informações do(a) parceiro(a)! </div>
                 </div>
             </div>
 
@@ -369,52 +479,49 @@
             </table>
         </form>
     </div>
- 
-    <div class="container mt-5">
+
+    <h3 class="text-center mt-4">Contato de Emergência</h3>
+    <div class="container mt-4">
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group">
-                    <h4>Selecione uma Consulta Médica</h4>
-                    <select id="consulta_select" class="form-control" onchange="filtrarConsulta()">
-                        <option value="">Selecione uma data</option>
-                        {% for consulta in consultas %}
-                            <option value="{{ consulta.data_consulta|date:'Y-m-d' }}" 
-                                {% if consulta_selecionada and consulta.data_consulta == consulta_selecionada.data_consulta %}selected{% endif %}>
-                                {{ consulta.data_consulta|date:"d/m/Y" }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
+                <label class="form-label">Selecione uma Consulta Médica:</label>
+                <select id="consulta_select" class="form-select" onchange="filtrarConsulta()">
+                    <option value="">Selecione uma data</option>
+                    {% for consulta in consultas %}
+                        <option value="{{ consulta.data_consulta|date:'Y-m-d' }}">{{ consulta.data_consulta|date:"d/m/Y" }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
-                    <h4>Selecione uma Consulta Odontológica</h4>
-                    <select id="odonto_select" class="form-control" onchange="filtrarConsultaOdonto()">
-                        <option value="">Selecione uma data</option>
-                        {% for odonto in consultas_odonto %}
-                            <option value="{{ odonto.tratamento_data|date:'Y-m-d' }}" 
-                                {% if consulta_odonto_selecionada and odonto.tratamento_data == consulta_odonto_selecionada.tratamento_data %}selected{% endif %}>
-                                {{ odonto.tratamento_data|date:"d/m/Y" }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
+                <label class="form-label">Selecione uma Consulta Odontológica:</label>
+                <select id="odonto_select" class="form-select" onchange="filtrarConsultaOdonto()">
+                    <option value="">Selecione uma data</option>
+                    {% for odonto in consultas_odonto %}
+                        <option value="{{ odonto.tratamento_data|date:'Y-m-d' }}">{{ odonto.tratamento_data|date:"d/m/Y" }}</option>
+                    {% endfor %}
+                </select>
             </div>
         </div>
-    </div>   
+    </div>
+    
+    <div id="consultaDetalhes" class="container mt-5 p-3 mb-4">
+    </div>
+    <div id="consultaOdontoDetalhes" class="container mt-4 p-3 mb-4">
+    </div>    
 
     {% if consulta_selecionada %}
-    <div class="card shadow-sm p-3 mb-4 bg-white rounded">
+    <div class="card shadow-sm p-3 mb-4 bg-white">
         <div class="card-header">
             <h5 class="card-title">Detalhes da Consulta</h5>
         </div>
     
         <div class="card-body">
-            <p><strong>Data:</strong> {{ consulta_selecionada.data_consulta }}</p>
-            <p><strong>Unidade de Saúde:</strong> {{ consulta_selecionada.unidade_saude }}</p>
-            <p><strong>Profissional:</strong> {{ consulta_selecionada.nome_profissional }}</p>
-            <p><strong>Especialidade:</strong> {{ consulta_selecionada.especialidade }}</p>
-            <p><strong>Observações:</strong> {{ consulta_selecionada.observacoes }}</p>
+            <p><strong>Observações:</strong> {{data.consulta_selecionada.observacoes}}</p>
+            <p><strong>Idade Gestacional:</strong> {{data.consulta_selecionada.idade_gestacional}}</p>
+            <p><strong>Unidade de Saúde:</strong> {{data.consulta_selecionada.unidade_saude}}</p>
+            <p><strong>Especialidade:</strong> {{data.consulta_selecionada.especialidade}}</p>
+            <p><strong>Nome do Profissional:</strong> {{data.consulta_selecionada.nome_profissional}}</p>
+            <p><strong>CRM:</strong> {{data.consulta_selecionada.crm}}</p>
         </div>
     
         <div class="card-footer text-muted">
@@ -430,10 +537,26 @@
         </div>
 
         <div class="card-body">
-            <p><strong>Data:</strong> {{ consulta_odonto_selecionada.tratamento_data }}</p>
-            <p><strong>Procedimento Realizado:</strong> {{ consulta_odonto_selecionada.procedimento_realizado }}</p>
-            <p><strong>Especialidade:</strong> {{ consulta_odonto_selecionada.especialidade }}</p>
-            <p><strong>Plano de Cuidado:</strong> {{ consulta_odonto_selecionada.plano_cuidado }}</p>
+            <p><strong>Placa Viável:</strong> {{data.consulta_odonto_selecionada.placa_viavel}}</p>
+            <p><strong>Data da Placa Viável:</strong> {{data.consulta_odonto_selecionada.placa_viavel_data}}</p>
+            <p><strong>Placa Sangramento:</strong> {{data.consulta_odonto_selecionada.placa_sangramento}}</p>
+            <p><strong>Data da Placa Sangramento:</strong> {{data.consulta_odonto_selecionada.placa_sangramento_data}}</p>
+            <p><strong>Placa Sangramento Sondagem:</strong> {{data.consulta_odonto_selecionada.placa_sangramento_sondagem}}</p>
+            <p><strong>Data da Placa Sangramento Sondagem:</strong> {{data.consulta_odonto_selecionada.placa_sangramento_sondagem_data}}</p>
+            <p><strong>Cálculo Dentário:</strong> {{data.consulta_odonto_selecionada.calculo_dentario}}</p>
+            <p><strong>Data do Cálculo Dentário:</strong> {{data.consulta_odonto_selecionada.calculo_dentario_data}}</p>
+            <p><strong>Mobilidade:</strong> {{data.consulta_odonto_selecionada.mobilidade}}</p>
+            <p><strong>Data da Mobilidade:</strong> {{data.consulta_odonto_selecionada.mobilidade_data}}</p>
+            <p><strong>Perda de Inserção:</strong>{{data.consulta_odonto_selecionada.perda_insercao}}</p>
+            <p><strong>Data da Perda de Inserção:</strong> {{data.consulta_odonto_selecionada.perda_insercao_data}}</p>
+            <p><strong>Plano de Tratamento:</strong> {{data.consulta_odonto_selecionada.plano_tratamento}}</p>
+            <p><strong>Tratamento Dente:</strong> {{data.consulta_odonto_selecionada.tratamento_dente}}</p>
+            <p><strong>Procedimento Realizado:</strong> {{data.consulta_odonto_selecionada.procedimento_realizado}}</p>
+            <p><strong>Especialidade:</strong> {{data.consulta_odonto_selecionada.especialidade}}</p>
+            <p><strong>Tratamento Necessário:</strong> {{data.consulta_odonto_selecionada.tratamento_necessario}}</p>
+            <p><strong>Encaminhamento:</strong> {{data.consulta_odonto_selecionada.encaminhamento}}</p>
+            <p><strong>Retorno:</strong> {{data.consulta_odonto_selecionada.retorno}}</p>
+            <p><strong>Plano de Cuidado:</strong> {{data.consulta_odonto_selecionada.plano_cuidado}}</p>
         </div>
     </div>
     {% endif %}
@@ -474,6 +597,8 @@
         
             if (consulta) {
                 document.getElementById("consultaData").textContent = consulta.data_consulta;
+                document.getElementById("consultaIdadeGestacional").textContent = consulta.idade_gestacional;
+                document.getElementById("crmProfissional").textContent = consulta.crm_profissional;
                 document.getElementById("consultaUnidade").textContent = consulta.unidade;
                 document.getElementById("consultaProfissional").textContent = consulta.profissional;
                 document.getElementById("consultaEspecialidade").textContent = consulta.especialidade;

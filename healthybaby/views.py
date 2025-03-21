@@ -9,6 +9,11 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import Odonto
 
+from django.http import JsonResponse
+from django.shortcuts import render, get_object_or_404
+from .models import Gestante, Odonto, Consulta
+from datetime import datetime
+
 def parse_date(date_str):
     from datetime import datetime
     try:
@@ -171,35 +176,66 @@ def posParto_cadastro(request):
 
     return render(request, 'posParto.html', {'form': form})
 
-from django.shortcuts import render, get_object_or_404
-from .models import Gestante, PosParto, Odonto, Consulta
-from datetime import datetime
- 
 def detalhes_gestante(request, cpf):
     gestante = get_object_or_404(Gestante, cpf=cpf)
     consultas = Consulta.objects.filter(gestante=gestante)
     consultas_odonto = Odonto.objects.filter(cpf_gestante=cpf)
- 
+
     data_consulta_selecionada = request.GET.get('data_consulta')
     data_odonto_selecionada = request.GET.get('data_odonto')
- 
+
     consulta_selecionada = None
     consulta_odonto_selecionada = None
- 
+
     if data_consulta_selecionada:
         try:
             data_formatada = datetime.strptime(data_consulta_selecionada, "%Y-%m-%d").date()
             consulta_selecionada = consultas.filter(data_consulta=data_formatada).first()
         except ValueError:
             pass
- 
+
     if data_odonto_selecionada:
         try:
             data_formatada = datetime.strptime(data_odonto_selecionada, "%Y-%m-%d").date()
             consulta_odonto_selecionada = consultas_odonto.filter(tratamento_data=data_formatada).first()
         except ValueError:
             pass
- 
+
+    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+        return JsonResponse({
+            "consulta_selecionada": {
+                "data_consulta": consulta_selecionada.data_consulta.strftime("%d/%m/%Y"),
+                "observacoes": consulta_selecionada.observacoes or 'N/A',
+                "idade_gestacional": str(consulta_selecionada.idade_gestacional) if consulta_selecionada.idade_gestacional else 'N/A',
+                "unidade_saude": consulta_selecionada.unidade_saude or 'N/A',
+                "especialidade": consulta_selecionada.especialidade or 'N/A',
+                "nome_profissional": consulta_selecionada.nome_profissional or 'N/A',
+                "crm": consulta_selecionada.crm or 'N/A',
+            } if consulta_selecionada else None,
+            "consulta_odonto_selecionada": {
+                "placa_viavel": consulta_odonto_selecionada.placa_viavel or 'N/A',
+                "placa_viavel_data": consulta_odonto_selecionada.placa_viavel_data.strftime("%d/%m/%Y") if consulta_odonto_selecionada.placa_viavel_data else 'N/A',
+                "placa_sangramento": consulta_odonto_selecionada.placa_sangramento or 'N/A',
+                "placa_sangramento_data": consulta_odonto_selecionada.placa_sangramento_data.strftime("%d/%m/%Y") if consulta_odonto_selecionada.placa_sangramento_data else 'N/A',
+                "placa_sangramento_sondagem": consulta_odonto_selecionada.placa_sangramento_sondagem or 'N/A',
+                "placa_sangramento_sondagem_data": consulta_odonto_selecionada.placa_sangramento_sondagem_data.strftime("%d/%m/%Y") if consulta_odonto_selecionada.placa_sangramento_sondagem_data else 'N/A',
+                "calculo_dentario": consulta_odonto_selecionada.calculo_dentario or 'N/A',
+                "calculo_dentario_data": consulta_odonto_selecionada.calculo_dentario_data.strftime("%d/%m/%Y") if consulta_odonto_selecionada.calculo_dentario_data else 'N/A',
+                "mobilidade": consulta_odonto_selecionada.mobilidade or 'N/A',
+                "mobilidade_data": consulta_odonto_selecionada.mobilidade_data.strftime("%d/%m/%Y") if consulta_odonto_selecionada.mobilidade_data else 'N/A',
+                "perda_insercao": consulta_odonto_selecionada.perda_insercao or 'N/A',
+                "perda_insercao_data": consulta_odonto_selecionada.perda_insercao_data.strftime("%d/%m/%Y") if consulta_odonto_selecionada.perda_insercao_data else 'N/A',
+                "plano_tratamento": consulta_odonto_selecionada.plano_tratamento or 'N/A',
+                "tratamento_dente": consulta_odonto_selecionada.tratamento_dente or 'N/A',
+                "procedimento_realizado": consulta_odonto_selecionada.procedimento_realizado or 'N/A',
+                "especialidade": consulta_odonto_selecionada.especialidade or 'N/A',
+                "tratamento_necessario": consulta_odonto_selecionada.tratamento_necessario or 'N/A',
+                "encaminhamento": consulta_odonto_selecionada.encaminhamento or 'N/A',
+                "retorno": consulta_odonto_selecionada.retorno or 'N/A',
+                "plano_cuidado": consulta_odonto_selecionada.plano_cuidado or 'N/A',
+            } if consulta_odonto_selecionada else None,
+        })
+
     return render(request, 'detalhes_gestante.html', {
         'gestante': gestante,
         'consultas': consultas,
