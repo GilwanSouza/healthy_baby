@@ -480,11 +480,11 @@
         </form>
     </div>
 
-    <h3 class="text-center mt-4">Contato de Emergência</h3>
+    <h3 class="text-center mt-4">Informações sobre as consultas!</h3>
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-6">
-                <label class="form-label">Selecione uma Consulta Médica:</label>
+                <label class="form-label">Consultas médicas por datas:</label>
                 <select id="consulta_select" class="form-select" onchange="filtrarConsulta()">
                     <option value="">Selecione uma data</option>
                     {% for consulta in consultas %}
@@ -493,7 +493,7 @@
                 </select>
             </div>
             <div class="col-md-6">
-                <label class="form-label">Selecione uma Consulta Odontológica:</label>
+                <label class="form-label">Consultas odontológicas por datas:</label>
                 <select id="odonto_select" class="form-select" onchange="filtrarConsultaOdonto()">
                     <option value="">Selecione uma data</option>
                     {% for odonto in consultas_odonto %}
