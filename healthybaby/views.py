@@ -108,6 +108,9 @@ def user_logout(request):
 def index(request):
     return render(request, 'index.html')
 
+def sobre(request):
+    return render(request, 'sobre.html')
+
 @login_required
 def cadastrar_consulta(request):
     if request.method == "POST":

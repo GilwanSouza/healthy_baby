@@ -22,6 +22,7 @@ urlpatterns = [
     path('posParto/', views.posParto_cadastro, name='posParto'),
     path("salvar-dentes/", views.salvar_dentes, name="salvar_dentes"),
     path("consultas/", views.cadastrar_consulta, name="consultas"),
+    path("sobre/", views.sobre, name="sobre"),
 
     path('detalhes/<str:cpf>/', detalhes_gestante, name='detalhes_gestante'),
     ]
