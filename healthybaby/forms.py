@@ -47,10 +47,16 @@ class CustomUserForm(UserCreationForm):
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite seu CPF'}),
         validators=[validar_cpf]
     )
+
+    profissao = forms.CharField(
+        label='Profissão',
+        required=False,
+        widget=forms.TextInput(attrs={"class": "form-control"})
+    )
     
     class Meta:
         model = CustomUser
-        fields = ['username', 'email','nome','data_nascimento', 'telefone', 'password1', 'password2']
+        fields = ['username', 'email','nome','data_nascimento', 'telefone', 'password1', 'password2', 'profissao']
 
     def __init__(self, *args, **kwargs):
         super(CustomUserForm, self).__init__(*args, **kwargs)
@@ -65,6 +71,7 @@ class CustomUserForm(UserCreationForm):
         self.fields['telefone'].widget.attrs['placeholder'] = 'Digite seu telefone'
         self.fields['password1'].widget.attrs['placeholder'] = 'Digite sua senha'
         self.fields['password2'].widget.attrs['placeholder'] = 'Confirme sua senha'
+        self.fields['profissao'].widget.attrs['placeholder'] = 'Digite sua profissão'
 
 class GestanteForm(forms.ModelForm):
     nome = forms.CharField(

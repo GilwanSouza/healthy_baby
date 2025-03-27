@@ -7,6 +7,7 @@ class CustomUser(AbstractUser):
     endereco = models.TextField(blank=True, null=True)
     data_nascimento = models.DateField(blank=True, null=True)
     nome = models.CharField(max_length=150, blank=True, null=True)
+    profissao = models.CharField(max_length=150, blank=True, null=True)
 
     def __str__(self):
         return self.username
